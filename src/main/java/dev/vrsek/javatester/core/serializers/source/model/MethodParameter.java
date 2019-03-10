@@ -1,4 +1,4 @@
-package vrsek.javatester.core.serializers.source.model;
+package dev.vrsek.javatester.core.serializers.source.model;
 
 public class MethodParameter {
 	private final String parameterType;

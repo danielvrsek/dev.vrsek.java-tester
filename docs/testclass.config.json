@@ -1,25 +1,40 @@
 {
-  "evaluatedMethodName": "testMethod",
-  "evaluationModules": [
+  "evaluatedMethodName":"testMethod",
+  "evaluationModules":[
     {
-      "methodcall": {
-        "type": "test.package.ConcreteClass",
-        "method": {
-          "name": "testMethod",
-          "parameters": [
-            null,
-            null
-          ],
-          "callCount": "1",
-          "behavior": "strict"
+      "methodcall":[
+        {
+          "name": "Domaci ukol - volani testovaci metody",
+          "description": "Popis vykonavane ulohy",
+          "type":"test.package.ConcreteClass",
+          "methods":[
+            {
+              "name":"testMethod",
+              "parameters":[
+                null,
+                null
+              ],
+              "callCount":"1",
+              "behavior":"strict"
+            }
+          ]
         }
-      },
-      "classfield": {
-        "evaluation": "exists",
-        "name": "testField",
-        "type": "java.lang.String",
-        "accessModifier": "private"
-      }
+      ],
+      "classfield":[
+        {
+          "name": "Domaci ukol - volani testovaci metody",
+          "description": "Popis vykonavane ulohy",
+          "type":"test.package.ConcreteClass",
+          "fields": [
+            {
+              "evaluation":"exists",
+              "name":"testField",
+              "type":"java.lang.String",
+              "accessModifier":"private"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

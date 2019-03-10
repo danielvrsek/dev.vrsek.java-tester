@@ -1,15 +1,11 @@
-package vrsek.javatester;
+package dev.vrsek.javatester;
 
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
-import vrsek.javatester.core.serializers.source.AccessModifierToStringMapper;
-import vrsek.javatester.core.serializers.source.IMemberSourceSerializer;
-import vrsek.javatester.core.serializers.source.JavaClassSourceSerializer;
-import vrsek.javatester.core.serializers.source.JavaMethodSourceSerializer;
-import vrsek.javatester.core.serializers.source.model.AccessModifier;
-
-import java.util.ArrayList;
-import java.util.List;
+import dev.vrsek.javatester.core.serializers.source.AccessModifierToStringMapper;
+import dev.vrsek.javatester.core.serializers.source.JavaClassSourceSerializer;
+import dev.vrsek.javatester.core.serializers.source.JavaMethodSourceSerializer;
+import dev.vrsek.javatester.core.serializers.source.model.AccessModifier;
 
 public class Main {
 	public static void main(String[] args) {

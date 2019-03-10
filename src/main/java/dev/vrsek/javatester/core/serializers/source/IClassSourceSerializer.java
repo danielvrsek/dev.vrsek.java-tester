@@ -1,4 +1,4 @@
-package vrsek.javatester.core.serializers.source;
+package dev.vrsek.javatester.core.serializers.source;
 
 public interface IClassSourceSerializer extends ISourceSerializer {
 	void setClassName(String className);

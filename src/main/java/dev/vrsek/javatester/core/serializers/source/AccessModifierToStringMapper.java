@@ -1,12 +1,6 @@
-package vrsek.javatester.core.serializers.source;
+package dev.vrsek.javatester.core.serializers.source;
 
-import jdk.jshell.spi.ExecutionControl;
-import vrsek.javatester.core.serializers.source.model.AccessModifier;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import dev.vrsek.javatester.core.serializers.source.model.AccessModifier;
 
 public class AccessModifierToStringMapper implements IMapper<AccessModifier, String> {
 	@Override

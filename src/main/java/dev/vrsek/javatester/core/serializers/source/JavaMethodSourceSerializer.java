@@ -1,7 +1,7 @@
-package vrsek.javatester.core.serializers.source;
+package dev.vrsek.javatester.core.serializers.source;
 
-import vrsek.javatester.core.serializers.source.model.AccessModifier;
-import vrsek.javatester.core.serializers.source.model.MethodParameter;
+import dev.vrsek.javatester.core.serializers.source.model.AccessModifier;
+import dev.vrsek.javatester.core.serializers.source.model.MethodParameter;
 
 public class JavaMethodSourceSerializer implements IMemberSourceSerializer {
 	private final IMapper<AccessModifier, String> accessModifierStringMapper;

@@ -1,5 +1,5 @@
 {
-  "methodName": "testMethod",
+  "evaluatedMethodName": "testMethod",
   "evaluationModules": [
     {
       "methodcall": {

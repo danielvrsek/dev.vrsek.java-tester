@@ -1,0 +1,25 @@
+{
+  "methodName": "testMethod",
+  "evaluationModules": [
+    {
+      "methodcall": {
+        "type": "test.package.ConcreteClass",
+        "method": {
+          "name": "testMethod",
+          "parameters": [
+            null,
+            null
+          ],
+          "callCount": "1",
+          "behavior": "strict"
+        }
+      },
+      "classfield": {
+        "evaluation": "exists",
+        "name": "testField",
+        "type": "java.lang.String",
+        "accessModifier": "private"
+      }
+    }
+  ]
+}

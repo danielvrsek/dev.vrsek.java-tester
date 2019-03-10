@@ -1,5 +1,7 @@
 package vrsek.javatester;
 
+import com.google.googlejavaformat.java.Formatter;
+import com.google.googlejavaformat.java.FormatterException;
 import vrsek.javatester.core.serializers.source.AccessModifierToStringMapper;
 import vrsek.javatester.core.serializers.source.IMemberSourceSerializer;
 import vrsek.javatester.core.serializers.source.JavaClassSourceSerializer;
@@ -18,7 +20,11 @@ public class Main {
 		classSourceSerializer.setClassName("TestClass");
 		classSourceSerializer.addMembers(getTestMethod());
 
-		System.out.println(classSourceSerializer.serialize());
+		try {
+			System.out.println(new Formatter().formatSource(classSourceSerializer.serialize()));
+		} catch (FormatterException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static JavaMethodSourceSerializer getTestMethod() {

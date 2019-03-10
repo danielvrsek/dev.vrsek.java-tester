@@ -59,9 +59,9 @@ public class JavaClassSourceSerializer implements IClassSourceSerializer {
 		sourceBuilder.append(serializePackageName());
 		sourceBuilder.append(serializeImports());
 		sourceBuilder.append(serializeClassSignature());
-		sourceBuilder.append(" {\n");
+		sourceBuilder.append("{");
 		sourceBuilder.append(serializeMembers());
-		sourceBuilder.append("\n}");
+		sourceBuilder.append("}");
 
 		return sourceBuilder.toString();
 	}
@@ -86,13 +86,13 @@ public class JavaClassSourceSerializer implements IClassSourceSerializer {
 		StringBuilder importsBuilder = new StringBuilder();
 
 		for (String imp : imports) {
-			importsBuilder.append("import " + imp + ";\n");
+			importsBuilder.append("import " + imp + ";");
 		}
 
 		return importsBuilder.toString();
 	}
 
 	private String serializePackageName() {
-		return "package " + packageName + ";\n";
+		return "package " + packageName + ";";
 	}
 }

@@ -52,9 +52,9 @@ public class JavaMethodSourceSerializer implements IMemberSourceSerializer {
 		StringBuilder methodSourceBuilder = new StringBuilder();
 
 		methodSourceBuilder.append(serializeSignature());
-		methodSourceBuilder.append(" {\n");
+		methodSourceBuilder.append("{");
 		methodSourceBuilder.append(serializeBody());
-		methodSourceBuilder.append("\n}");
+		methodSourceBuilder.append("}");
 
 		return methodSourceBuilder.toString();
 	}
@@ -63,7 +63,7 @@ public class JavaMethodSourceSerializer implements IMemberSourceSerializer {
 		StringBuilder stringBuilder = new StringBuilder();
 
 		for (String line : body) {
-			stringBuilder.append(line + "\n");
+			stringBuilder.append(line);
 		}
 
 		return stringBuilder.toString();

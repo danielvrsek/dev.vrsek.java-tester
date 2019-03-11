@@ -1,11 +1,11 @@
 package dev.vrsek.javatester.core.source.serializers;
 
-public interface IClassSourceSerializer extends ISourceSerializer {
+public interface IClassSourceBuilder extends ISourceBuilder {
 	void setClassName(String className);
 
 	void setPackageName(String packageName);
 
 	void addImports(String... imports);
 
-	void addMembers(IMemberSourceSerializer... members);
+	void addMembers(IMemberSourceBuilder... members);
 }

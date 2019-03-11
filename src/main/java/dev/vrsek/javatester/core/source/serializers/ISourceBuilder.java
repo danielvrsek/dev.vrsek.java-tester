@@ -1,8 +1,8 @@
 package dev.vrsek.javatester.core.source.serializers;
 
 import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
-import dev.vrsek.utils.ISerializer;
+import dev.vrsek.utils.IBuilder;
 
-public interface ISourceSerializer extends ISerializer<String> {
+public interface ISourceBuilder extends IBuilder<String> {
 	void setAccessModifier(AccessModifier accessModifier);
 }

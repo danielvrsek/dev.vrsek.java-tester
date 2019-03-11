@@ -1,6 +1,6 @@
 package dev.vrsek.javatester.core.source.serializers;
 
-public interface IMemberSourceSerializer extends ISourceSerializer {
+public interface IMemberSourceBuilder extends ISourceBuilder {
 	void setName(String name);
 
 	void setTypeName(String typeName);

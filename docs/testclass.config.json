@@ -2,28 +2,34 @@
   "evaluatedMethodName":"testMethod",
   "evaluationModules":[
     {
-      "methodcall":[
+      "methodcall": [
         {
-          "name": "Domaci ukol - volani testovaci metody",
-          "description": "Popis vykonavane ulohy",
-          "type":"test.package.ConcreteClass",
-          "methods":[
+          "id": "someMethod_du_05_19",
+          "description": "Domaci ukol - volani testovaci metody",
+          "type":"test.package.DependentClass",
+          "methods": [
             {
-              "name":"testMethod",
+              "name":"someMethod",
               "parameters":[
-                null,
-                null
+                {
+                  "type": "java.lang.String",
+                  "name": "param1"
+                },
+                {
+                  "type": "java.lang.Integer",
+                  "name": "param2"
+                }
               ],
-              "callCount":"1",
-              "behavior":"strict"
+              "callCount": 1,
+              "evaluationBehavior": "strict"
             }
           ]
         }
       ],
       "classfield":[
         {
-          "name": "Domaci ukol - volani testovaci metody",
-          "description": "Popis vykonavane ulohy",
+          "id": "testField_du_05_19",
+          "description": "Domaci ukol - existence privatniho atributu",
           "type":"test.package.ConcreteClass",
           "fields": [
             {

@@ -2,12 +2,12 @@ package dev.vrsek.javatester.core.source.serializers;
 
 import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
 
-public class JavaFieldSourceSerializer implements IMemberSourceSerializer {
+public class JavaFieldSourceBuilder implements IMemberSourceBuilder {
 	private AccessModifier accessModifier;
 	private String typeName;
 	private String name;
 
-	public JavaFieldSourceSerializer() {
+	public JavaFieldSourceBuilder() {
 		initializeDefaultValues();
 	}
 
@@ -33,7 +33,7 @@ public class JavaFieldSourceSerializer implements IMemberSourceSerializer {
 	}
 
 	@Override
-	public String serialize() {
+	public String build() {
 		return String.format("%s %s %s;", accessModifier, typeName, name);
 	}
 }

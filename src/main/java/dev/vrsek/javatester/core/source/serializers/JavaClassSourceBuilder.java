@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class JavaClassSourceSerializer implements IClassSourceSerializer {
+public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	private final IMapper<AccessModifier, String> accessModifierStringMapper;
 
 	private AccessModifier accessModifier;
 	private String className;
-	private List<IMemberSourceSerializer> members;
+	private List<IMemberSourceBuilder> members;
 	private String packageName;
 	private List<String> imports;
 
-	public JavaClassSourceSerializer(IMapper<AccessModifier, String> accessModifierStringMapper) {
+	public JavaClassSourceBuilder(IMapper<AccessModifier, String> accessModifierStringMapper) {
 		this.accessModifierStringMapper = accessModifierStringMapper;
 
 		initializeDefaultValues();
@@ -49,12 +49,12 @@ public class JavaClassSourceSerializer implements IClassSourceSerializer {
 	}
 
 	@Override
-	public void addMembers(IMemberSourceSerializer... members) {
+	public void addMembers(IMemberSourceBuilder... members) {
 		Collections.addAll(this.members, members);
 	}
 
 	@Override
-	public String serialize() {
+	public String build() {
 		StringBuilder sourceBuilder = new StringBuilder();
 
 		sourceBuilder.append(serializePackageName());
@@ -77,7 +77,7 @@ public class JavaClassSourceSerializer implements IClassSourceSerializer {
 		StringBuilder membersBuilder = new StringBuilder();
 
 		for (var member : members) {
-			membersBuilder.append(member.serialize());
+			membersBuilder.append(member.build());
 		}
 
 		return membersBuilder.toString();

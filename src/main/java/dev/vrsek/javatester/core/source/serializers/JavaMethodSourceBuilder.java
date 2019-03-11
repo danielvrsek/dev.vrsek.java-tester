@@ -4,7 +4,7 @@ import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
 import dev.vrsek.javatester.core.source.serializers.model.MethodParameter;
 import dev.vrsek.utils.IMapper;
 
-public class JavaMethodSourceSerializer implements IMemberSourceSerializer {
+public class JavaMethodSourceBuilder implements IMemberSourceBuilder {
 	private final IMapper<AccessModifier, String> accessModifierStringMapper;
 
 	private AccessModifier accessModifier;
@@ -13,7 +13,7 @@ public class JavaMethodSourceSerializer implements IMemberSourceSerializer {
 	private MethodParameter[] parameters;
 	private String[] body;
 
-	public JavaMethodSourceSerializer(IMapper<AccessModifier, String> accessModifierStringMapper){
+	public JavaMethodSourceBuilder(IMapper<AccessModifier, String> accessModifierStringMapper){
 		this.accessModifierStringMapper = accessModifierStringMapper;
 
 		initializeDefaultValues();
@@ -49,7 +49,7 @@ public class JavaMethodSourceSerializer implements IMemberSourceSerializer {
 	}
 
 	@Override
-	public String serialize() {
+	public String build() {
 		StringBuilder methodSourceBuilder = new StringBuilder();
 
 		methodSourceBuilder.append(serializeSignature());

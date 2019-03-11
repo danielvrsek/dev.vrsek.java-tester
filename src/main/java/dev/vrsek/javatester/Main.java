@@ -2,14 +2,14 @@ package dev.vrsek.javatester;
 
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
-import dev.vrsek.javatester.core.serializers.source.AccessModifierToStringMapper;
-import dev.vrsek.javatester.core.serializers.source.JavaClassSourceSerializer;
-import dev.vrsek.javatester.core.serializers.source.JavaMethodSourceSerializer;
-import dev.vrsek.javatester.core.serializers.source.model.AccessModifier;
+import dev.vrsek.javatester.core.source.serializers.AccessModifierToStringMapper;
+import dev.vrsek.javatester.core.source.serializers.JavaClassSourceBuilder;
+import dev.vrsek.javatester.core.source.serializers.JavaMethodSourceBuilder;
+import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
 
 public class Main {
 	public static void main(String[] args) {
-		JavaClassSourceSerializer classSourceSerializer = new JavaClassSourceSerializer(new AccessModifierToStringMapper());
+		JavaClassSourceBuilder classSourceSerializer = new JavaClassSourceBuilder(new AccessModifierToStringMapper());
 
 		classSourceSerializer.setAccessModifier(AccessModifier.PUBLIC);
 		classSourceSerializer.setPackageName("vrsek.test");
@@ -17,14 +17,14 @@ public class Main {
 		classSourceSerializer.addMembers(getTestMethod());
 
 		try {
-			System.out.println(new Formatter().formatSource(classSourceSerializer.serialize()));
+			System.out.println(new Formatter().formatSource(classSourceSerializer.build()));
 		} catch (FormatterException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static JavaMethodSourceSerializer getTestMethod() {
-		JavaMethodSourceSerializer serializer = new JavaMethodSourceSerializer(new AccessModifierToStringMapper());
+	private static JavaMethodSourceBuilder getTestMethod() {
+		JavaMethodSourceBuilder serializer = new JavaMethodSourceBuilder(new AccessModifierToStringMapper());
 
 		serializer.setAccessModifier(AccessModifier.PRIVATE);
 		serializer.setTypeName("void");

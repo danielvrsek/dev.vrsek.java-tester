@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.core.serializers.source;
+package dev.vrsek.utils;
 
 public interface IMapper<TFrom, TTo> {
 	TTo map(TFrom input);

@@ -1,6 +1,6 @@
-package dev.vrsek.javatester.core.serializers.source.model;
+package dev.vrsek.javatester.core.source.serializers.model;
 
-import dev.vrsek.javatester.core.serializers.source.annotations.Serializable;
+import dev.vrsek.javatester.core.source.serializers.annotations.Serializable;
 
 public enum AccessModifier {
 	@Serializable(text = "private")

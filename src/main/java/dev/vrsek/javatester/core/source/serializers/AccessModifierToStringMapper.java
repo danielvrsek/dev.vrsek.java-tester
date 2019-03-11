@@ -1,6 +1,7 @@
-package dev.vrsek.javatester.core.serializers.source;
+package dev.vrsek.javatester.core.source.serializers;
 
-import dev.vrsek.javatester.core.serializers.source.model.AccessModifier;
+import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
+import dev.vrsek.utils.IMapper;
 
 public class AccessModifierToStringMapper implements IMapper<AccessModifier, String> {
 	@Override

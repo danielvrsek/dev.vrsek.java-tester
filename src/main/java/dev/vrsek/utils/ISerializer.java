@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.core.serializers;
+package dev.vrsek.utils;
 
 public interface ISerializer<T> {
 	T serialize();

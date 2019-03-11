@@ -1,6 +1,6 @@
-package dev.vrsek.javatester.core.serializers.source;
+package dev.vrsek.javatester.core.source.serializers;
 
-import dev.vrsek.javatester.core.serializers.source.model.AccessModifier;
+import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
 
 public class JavaFieldSourceSerializer implements IMemberSourceSerializer {
 	private AccessModifier accessModifier;

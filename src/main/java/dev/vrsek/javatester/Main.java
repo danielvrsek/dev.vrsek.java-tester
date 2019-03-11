@@ -2,10 +2,10 @@ package dev.vrsek.javatester;
 
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
-import dev.vrsek.javatester.core.source.serializers.AccessModifierToStringMapper;
-import dev.vrsek.javatester.core.source.serializers.JavaClassSourceBuilder;
-import dev.vrsek.javatester.core.source.serializers.JavaMethodSourceBuilder;
-import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
+import dev.vrsek.javatester.core.source.builders.AccessModifierToStringMapper;
+import dev.vrsek.javatester.core.source.builders.JavaClassSourceBuilder;
+import dev.vrsek.javatester.core.source.builders.JavaMethodSourceBuilder;
+import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
 
 public class Main {
 	public static void main(String[] args) {

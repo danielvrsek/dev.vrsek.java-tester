@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.core.source.serializers.annotations;
+package dev.vrsek.javatester.core.source.builders.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

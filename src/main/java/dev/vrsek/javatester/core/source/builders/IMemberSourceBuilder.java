@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.core.source.serializers;
+package dev.vrsek.javatester.core.source.builders;
 
 public interface IMemberSourceBuilder extends ISourceBuilder {
 	void setName(String name);

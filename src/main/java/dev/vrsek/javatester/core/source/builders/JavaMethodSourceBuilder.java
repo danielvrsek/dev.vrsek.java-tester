@@ -1,7 +1,7 @@
-package dev.vrsek.javatester.core.source.serializers;
+package dev.vrsek.javatester.core.source.builders;
 
-import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
-import dev.vrsek.javatester.core.source.serializers.model.MethodParameter;
+import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
+import dev.vrsek.javatester.core.source.builders.model.MethodParameter;
 import dev.vrsek.utils.IMapper;
 
 public class JavaMethodSourceBuilder implements IMemberSourceBuilder {

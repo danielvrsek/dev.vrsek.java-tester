@@ -1,6 +1,6 @@
-package dev.vrsek.javatester.core.source.serializers;
+package dev.vrsek.javatester.core.source.builders;
 
-import dev.vrsek.javatester.core.source.serializers.model.AccessModifier;
+import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
 import dev.vrsek.utils.IMapper;
 
 import java.util.ArrayList;

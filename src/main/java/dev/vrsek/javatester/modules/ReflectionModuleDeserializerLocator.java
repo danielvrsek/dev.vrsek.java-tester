@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ReflectionModuleDeserializerLocator implements IModuleLocator {
+public class ReflectionModuleDeserializerLocator implements IModuleDeserializerLocator {
 	private Map<String, IModuleDeserializer> dictionary;
 
 	private void initialize() {

@@ -4,15 +4,15 @@ import com.google.common.collect.Iterables;
 import com.google.gson.*;
 import dev.vrsek.javatester.core.configuration.classtest.exceptions.ModuleNotFoundException;
 import dev.vrsek.javatester.core.configuration.classtest.model.Module;
-import dev.vrsek.javatester.modules.IModuleLocator;
+import dev.vrsek.javatester.modules.IModuleDeserializerLocator;
 import dev.vrsek.utils.Pair;
 
 import java.lang.reflect.Type;
 
 public class ModuleCollectionDeserializer implements JsonDeserializer<Pair<String, Module>> {
-	private final IModuleLocator moduleLocator;
+	private final IModuleDeserializerLocator moduleLocator;
 
-	public ModuleCollectionDeserializer(IModuleLocator moduleLocator) {
+	public ModuleCollectionDeserializer(IModuleDeserializerLocator moduleLocator) {
 		this.moduleLocator = moduleLocator;
 	}
 

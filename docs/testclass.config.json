@@ -1,9 +1,10 @@
 {
   "evaluatedMethodName":"testMethod",
   "evaluationModules":[
-    {"methodcall": [
+    {
+      "methodcall": [
         {
-          "id": "someMethod_du_05_19",
+          "name": "someMethod_du_05_19",
           "description": "Domaci ukol - volani testovaci metody",
           "type":"test.package.DependentClass",
           "methods": [
@@ -29,9 +30,8 @@
     {
       "classfield": [
         {
-          "id": "testField_du_05_19",
+          "name": "testField_du_05_19",
           "description": "Domaci ukol - existence privatniho atributu",
-          "type": "test.package.ConcreteClass",
           "fields": [
             {
               "evaluation": "exists",

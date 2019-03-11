@@ -6,18 +6,19 @@ import java.lang.reflect.InvocationTargetException;
 public class ClassActivator {
 	public static <T> T createNewInstance(Class<T> type) throws IllegalAccessException, InvocationTargetException, InstantiationException {
 		Constructor[] ctors = type.getDeclaredConstructors();
-		Constructor ctor = null;
-		for (int i = 0; i < ctors.length; i++) {
-			ctor = ctors[i];
-			if (ctor.getGenericParameterTypes().length == 0)
+		Constructor parameterlessCtor = null;
+		for (Constructor ctor : ctors) {
+			if (ctor.getParameterCount() == 0) {
+				parameterlessCtor = ctor;
 				break;
+			}
 		}
 
-		if (ctor == null) {
+		if (parameterlessCtor == null) {
 			return null;
 		}
 
-		ctor.setAccessible(true);
-		return (T)ctor.newInstance();
+		parameterlessCtor.setAccessible(true);
+		return (T)parameterlessCtor.newInstance();
 	}
 }

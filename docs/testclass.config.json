@@ -1,8 +1,7 @@
 {
   "evaluatedMethodName":"testMethod",
   "evaluationModules":[
-    {
-      "methodcall": [
+    {"methodcall": [
         {
           "id": "someMethod_du_05_19",
           "description": "Domaci ukol - volani testovaci metody",
@@ -25,18 +24,20 @@
             }
           ]
         }
-      ],
-      "classfield":[
+      ]
+    },
+    {
+      "classfield": [
         {
           "id": "testField_du_05_19",
           "description": "Domaci ukol - existence privatniho atributu",
-          "type":"test.package.ConcreteClass",
+          "type": "test.package.ConcreteClass",
           "fields": [
             {
-              "evaluation":"exists",
-              "name":"testField",
-              "type":"java.lang.String",
-              "accessModifier":"private"
+              "evaluation": "exists",
+              "name": "testField",
+              "type": "java.lang.String",
+              "accessModifier": "private"
             }
           ]
         }

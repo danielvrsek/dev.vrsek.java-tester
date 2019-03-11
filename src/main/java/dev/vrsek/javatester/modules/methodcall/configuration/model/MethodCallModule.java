@@ -1,12 +1,11 @@
-package dev.vrsek.javatester.modules.classfield.configuration.model;
-
-import dev.vrsek.javatester.core.configuration.classtest.model.EvaluationModel;
+package dev.vrsek.javatester.modules.methodcall.configuration.model;
 
 import java.util.List;
 
-public class MethodCallEvaluation extends EvaluationModel {
+public class MethodCallModule {
 	// Type where the evaluated method/s are implemented
 	private String type;
+
 	// Method definitions to be
 	private List<MethodDefinition> methods;
 

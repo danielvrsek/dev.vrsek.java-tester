@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.modules.classfield.configuration.model;
+package dev.vrsek.javatester.modules.methodcall.configuration.model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
 package dev.vrsek.javatester.core.configuration;
 
-public class Configuration {
+public abstract class Configuration {
 }

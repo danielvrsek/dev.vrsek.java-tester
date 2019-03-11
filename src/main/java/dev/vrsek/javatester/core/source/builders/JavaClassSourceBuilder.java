@@ -2,12 +2,14 @@ package dev.vrsek.javatester.core.source.builders;
 
 import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
 import dev.vrsek.utils.IMapper;
+import dev.vrsek.utils.ISourceFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class JavaClassSourceBuilder implements IClassSourceBuilder {
+	private final ISourceFormatter sourceFormatter;
 	private final IMapper<AccessModifier, String> accessModifierStringMapper;
 
 	private AccessModifier accessModifier;
@@ -16,7 +18,8 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	private String packageName;
 	private List<String> imports;
 
-	public JavaClassSourceBuilder(IMapper<AccessModifier, String> accessModifierStringMapper) {
+	public JavaClassSourceBuilder(ISourceFormatter sourceFormatter, IMapper<AccessModifier, String> accessModifierStringMapper) {
+		this.sourceFormatter = sourceFormatter;
 		this.accessModifierStringMapper = accessModifierStringMapper;
 
 		initializeDefaultValues();
@@ -64,7 +67,9 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 		sourceBuilder.append(serializeMembers());
 		sourceBuilder.append("}");
 
-		return sourceBuilder.toString();
+		String plainSource = sourceBuilder.toString();
+
+		return sourceFormatter.format(plainSource);
 	}
 
 	private String serializeClassSignature() {

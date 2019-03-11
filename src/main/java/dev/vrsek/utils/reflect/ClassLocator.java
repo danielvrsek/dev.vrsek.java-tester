@@ -7,8 +7,13 @@ import java.util.Set;
 
 public class ClassLocator {
 	public static <T> Set<Class<? extends T>> allAssignableFrom(Class<T> type) throws IOException {
-		Reflections reflections = new Reflections("dev.vrsek.javatester.modules");
+		return allAssignableFrom(type, "");
+	}
 
+	public static <T> Set<Class<? extends T>> allAssignableFrom(Class<T> type, String packagePrefix) throws IOException {
+		assert packagePrefix != null;
+
+		Reflections reflections = new Reflections(packagePrefix);
 		return reflections.getSubTypesOf(type);
 	}
 }

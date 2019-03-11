@@ -34,10 +34,10 @@
           "description": "Domaci ukol - existence privatniho atributu",
           "fields": [
             {
-              "evaluation": "exists",
+              "evaluation": "EXISTS",
               "name": "testField",
               "type": "java.lang.String",
-              "accessModifier": "private"
+              "accessModifier": "PRIVATE"
             }
           ]
         }

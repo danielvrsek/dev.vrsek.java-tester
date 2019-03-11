@@ -12,7 +12,7 @@ public class ClassFieldModuleCollection extends Module {
 		this.classFieldModules = new ArrayList<>();
 	}
 
-	public Collection<ClassFieldModule> getMethodCallModules() {
+	public Collection<ClassFieldModule> getClassFieldModules() {
 		return classFieldModules;
 	}
 

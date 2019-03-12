@@ -1,8 +1,7 @@
-package dev.vrsek.javatester.services;
+package dev.vrsek.utils;
 
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
-import dev.vrsek.utils.ISourceFormatter;
 
 public class JavaSourceFormatter implements ISourceFormatter {
 	private final Formatter formatter;

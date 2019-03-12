@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.services;
+package dev.vrsek.javatester.core.source.builders;
 
 import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
 import dev.vrsek.utils.IMapper;

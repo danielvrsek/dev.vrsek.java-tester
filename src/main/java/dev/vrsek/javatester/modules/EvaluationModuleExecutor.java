@@ -10,17 +10,16 @@ public class EvaluationModuleExecutor {
 	}
 
 	public void execute(ClassTestConfiguration classTestConfiguration) {
-		EvaluationContext context = new EvaluationContext();
-		context.setEvaluatedClassLocation("TestClass");
+		RootEvaluationContext context = new RootEvaluationContext("root");
+		context.setEvaluatedClassLocation("dev.vrsek.TestClass");
 
 		for (var module : classTestConfiguration.getModules()) {
 			IEvaluationModule moduleEvaluator = evaluationModuleLocator.find(module.getKey());
 
-			try {
-				moduleEvaluator.evaluate(module.getValue(), context);
-			} catch (EvaluationException e) {
-				e.printStackTrace();
-			}
+			moduleEvaluator.evaluate(module.getValue(), context);
 		}
+
+		String errors = new EvaluationErrorSerializer().serialize(context);
+		System.out.println(errors);
 	}
 }

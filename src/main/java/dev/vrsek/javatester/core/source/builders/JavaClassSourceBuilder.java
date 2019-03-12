@@ -36,6 +36,10 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 		this.accessModifier = accessModifier;
 	}
 
+	public String getClassName() {
+		return className;
+	}
+
 	@Override
 	public void setClassName(String className) {
 		this.className = className;
@@ -99,6 +103,10 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	}
 
 	private String serializePackageName() {
-		return "package " + packageName + ";";
+		if (packageName != null) {
+			return "package " + packageName + ";";
+		}
+
+		return "";
 	}
 }

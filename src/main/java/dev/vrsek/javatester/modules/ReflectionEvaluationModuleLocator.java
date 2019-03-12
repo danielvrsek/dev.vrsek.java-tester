@@ -1,7 +1,5 @@
-package dev.vrsek.javatester.services;
+package dev.vrsek.javatester.modules;
 
-import dev.vrsek.javatester.modules.IEvaluationModule;
-import dev.vrsek.javatester.modules.IEvaluationModuleLocator;
 import dev.vrsek.utils.reflect.GenericReflectionClassLocator;
 
 public class ReflectionEvaluationModuleLocator  extends GenericReflectionClassLocator<String, IEvaluationModule> implements IEvaluationModuleLocator {

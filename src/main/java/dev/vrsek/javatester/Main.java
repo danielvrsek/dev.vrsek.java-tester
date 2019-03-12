@@ -1,17 +1,36 @@
 package dev.vrsek.javatester;
 
-import dev.vrsek.javatester.core.configuration.classtest.ClassTestConfigurationDeserializer;
-import dev.vrsek.javatester.modules.EvaluationModuleExecutor;
-import dev.vrsek.javatester.services.ReflectionEvaluationModuleLocator;
+import dev.vrsek.javatester.core.source.builders.AccessModifierToStringMapper;
+import dev.vrsek.javatester.core.source.builders.JavaClassSourceBuilder;
+import dev.vrsek.javatester.core.source.builders.JavaMethodSourceBuilder;
+import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
+import dev.vrsek.utils.JavaSourceFormatter;
+import dev.vrsek.utils.compiler.runtime.InMemoryJavaCompiler;
 
 public class Main {
-	public static void main(String[] args) {
-		String json = "{\"evaluatedMethodName\":\"testMethod\",\"evaluationModules\":[{\"methodcall\":[{\"name\":\"someMethod_du_05_19\",\"description\":\"Domaci ukol - volani testovaci metody\",\"type\":\"test.package.DependentClass\",\"methods\":[{\"name\":\"someMethod\",\"parameters\":[{\"type\":\"java.lang.String\",\"name\":\"param1\"},{\"type\":\"java.lang.Integer\",\"name\":\"param2\"}],\"callCount\":1,\"evaluationBehavior\":\"strict\"}]}]},{\"classfield\":[{\"name\":\"testField_du_05_19\",\"description\":\"Domaci ukol - existence privatniho atributu\",\"fields\":[{\"evaluation\":\"EXISTS\",\"name\":\"testField\",\"type\":\"java.lang.String\",\"accessModifier\":\"PRIVATE\"}]}]}]}";
+	public static void main(String[] args) throws Exception {
+		InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
 
-		ClassTestConfigurationDeserializer deserializer = new ClassTestConfigurationDeserializer();
-		var out = deserializer.deserialize(json);
 
-		EvaluationModuleExecutor executor = new EvaluationModuleExecutor(new ReflectionEvaluationModuleLocator());
-		executor.execute(out);
+		JavaClassSourceBuilder sourceBuilder = getSource();
+		System.out.println(sourceBuilder.build());
+		Class c = compiler.compile(sourceBuilder.getClassName(), sourceBuilder.build());
+	}
+
+	private static JavaClassSourceBuilder getSource() {
+		JavaMethodSourceBuilder methodSourceBuilder = new JavaMethodSourceBuilder(new AccessModifierToStringMapper());
+		methodSourceBuilder.setName("testMethod");
+		methodSourceBuilder.setAccessModifier(AccessModifier.PRIVATE);
+		methodSourceBuilder.setTypeName("String");
+		methodSourceBuilder.setBody(new String[] {
+				"return null;"
+		});
+
+		JavaClassSourceBuilder classSourceBuilder = new JavaClassSourceBuilder(new JavaSourceFormatter(), new AccessModifierToStringMapper());
+		classSourceBuilder.setClassName("CompiledClass");
+		classSourceBuilder.addImports("dev.vrsek.TestClass");
+		classSourceBuilder.addMembers(methodSourceBuilder);
+
+		return classSourceBuilder;
 	}
 }

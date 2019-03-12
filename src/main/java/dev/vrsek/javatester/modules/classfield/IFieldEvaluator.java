@@ -1,9 +1,7 @@
 package dev.vrsek.javatester.modules.classfield;
 
-import dev.vrsek.javatester.modules.EvaluationError;
-
-import java.util.Collection;
+import dev.vrsek.javatester.modules.IReadOnlyEvaluationContext;
 
 public interface IFieldEvaluator {
-	Collection<EvaluationError> evaluate();
+	Boolean evaluate(IReadOnlyEvaluationContext readOnlyContext);
 }

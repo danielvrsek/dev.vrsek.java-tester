@@ -1,4 +1,4 @@
-package dev.vrsek.utils.compiler.runtime;
+package dev.vrsek.utils.compilers.runtime;
 
 import javax.tools.SimpleJavaFileObject;
 import java.io.ByteArrayOutputStream;

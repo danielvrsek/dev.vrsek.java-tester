@@ -1,18 +1,28 @@
 package dev.vrsek.javatester.core.source.builders;
 
 import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
+import dev.vrsek.utils.exceptions.ValidationException;
+import dev.vrsek.utils.validators.IValidator;
+import dev.vrsek.utils.validators.NotNullObjectValidator;
+import dev.vrsek.utils.validators.NotNullOrEmptyStringValidator;
 
 public class JavaFieldSourceBuilder implements IMemberSourceBuilder {
 	private AccessModifier accessModifier;
 	private String typeName;
 	private String name;
+	private IValidator[] validators;
 
 	public JavaFieldSourceBuilder() {
-		initializeDefaultValues();
+		accessModifier = AccessModifier.PUBLIC;
+		initializeValidators();
 	}
 
-	private void initializeDefaultValues(){
-		accessModifier = AccessModifier.PUBLIC;
+	private void initializeValidators(){
+		validators = new IValidator[] {
+				new NotNullOrEmptyStringValidator(() -> name, "Field name cannot be null or empty."),
+				new NotNullOrEmptyStringValidator(() -> typeName, "Field's type cannot be null or empty."),
+				new NotNullObjectValidator(() -> accessModifier, "Field's access modifier cannot be null.")
+		};
 	}
 
 	@Override
@@ -33,7 +43,15 @@ public class JavaFieldSourceBuilder implements IMemberSourceBuilder {
 	}
 
 	@Override
-	public String build() {
+	public String build() throws ValidationException {
+		validate();
+
 		return String.format("%s %s %s;", accessModifier, typeName, name);
+	}
+
+	private void validate() throws ValidationException {
+		for (IValidator validator : validators) {
+			validator.validate();
+		}
 	}
 }

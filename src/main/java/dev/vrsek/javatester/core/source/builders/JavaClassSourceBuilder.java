@@ -3,6 +3,10 @@ package dev.vrsek.javatester.core.source.builders;
 import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
 import dev.vrsek.utils.IMapper;
 import dev.vrsek.utils.ISourceFormatter;
+import dev.vrsek.utils.exceptions.ValidationException;
+import dev.vrsek.utils.validators.IValidator;
+import dev.vrsek.utils.validators.NotNullObjectValidator;
+import dev.vrsek.utils.validators.NotNullOrEmptyStringValidator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,22 +22,26 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	private String packageName;
 	private List<String> imports;
 
+	private IValidator[] validators;
+
 	public JavaClassSourceBuilder(ISourceFormatter sourceFormatter, IMapper<AccessModifier, String> accessModifierStringMapper) {
 		this.sourceFormatter = sourceFormatter;
 		this.accessModifierStringMapper = accessModifierStringMapper;
 
-		initializeDefaultValues();
-	}
-
-	private void initializeDefaultValues() {
 		this.accessModifier = AccessModifier.PUBLIC;
 		this.members = new ArrayList<>();
 		this.imports = new ArrayList<>();
+
+		initializeValidators();
 	}
 
-	@Override
-	public void setAccessModifier(AccessModifier accessModifier) {
-		this.accessModifier = accessModifier;
+	private void initializeValidators() {
+		validators = new IValidator[] {
+				new NotNullOrEmptyStringValidator(() -> className, "Name of the class cannot be empty or null."),
+				new NotNullObjectValidator(() -> accessModifier, "Access modifier cannot be null."),
+				new NotNullObjectValidator(() -> members),
+				new NotNullObjectValidator(() -> imports)
+		};
 	}
 
 	public String getClassName() {
@@ -43,6 +51,11 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	@Override
 	public void setClassName(String className) {
 		this.className = className;
+	}
+
+	@Override
+	public void setAccessModifier(AccessModifier accessModifier) {
+		this.accessModifier = accessModifier;
 	}
 
 	@Override
@@ -61,7 +74,9 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	}
 
 	@Override
-	public String build() {
+	public String build() throws ValidationException {
+		validate();
+
 		StringBuilder sourceBuilder = new StringBuilder();
 
 		sourceBuilder.append(serializePackageName());
@@ -76,13 +91,21 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 		return sourceFormatter.format(plainSource);
 	}
 
+	private void validate() throws ValidationException {
+		for (IValidator validator : validators) {
+			validator.validate();
+		}
+	}
+
 	private String serializeClassSignature() {
+		assert className != null && !className.isEmpty();
 		String accessModifierString = accessModifierStringMapper.map(accessModifier);
+		assert accessModifierString != null && !className.isEmpty();
 
 		return String.format("%s class %s", accessModifierString, className);
 	}
 
-	private String serializeMembers() {
+	private String serializeMembers() throws ValidationException {
 		StringBuilder membersBuilder = new StringBuilder();
 
 		for (var member : members) {

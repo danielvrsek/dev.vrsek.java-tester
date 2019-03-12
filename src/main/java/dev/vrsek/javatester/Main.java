@@ -5,7 +5,7 @@ import dev.vrsek.javatester.core.source.builders.JavaClassSourceBuilder;
 import dev.vrsek.javatester.core.source.builders.JavaMethodSourceBuilder;
 import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
 import dev.vrsek.utils.JavaSourceFormatter;
-import dev.vrsek.utils.compiler.runtime.InMemoryJavaCompiler;
+import dev.vrsek.utils.compilers.runtime.InMemoryJavaCompiler;
 
 public class Main {
 	public static void main(String[] args) throws Exception {

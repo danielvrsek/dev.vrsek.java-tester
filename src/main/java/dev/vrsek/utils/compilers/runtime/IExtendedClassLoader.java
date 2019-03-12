@@ -1,4 +1,4 @@
-package dev.vrsek.utils.compiler.runtime;
+package dev.vrsek.utils.compilers.runtime;
 
 public interface IExtendedClassLoader {
 	Class defineClass(String name, byte[] bytes);

@@ -1,4 +1,4 @@
-package dev.vrsek.utils.compiler.runtime;
+package dev.vrsek.utils.compilers.runtime;
 
 import dev.vrsek.utils.reflect.DynamicURLClassLoader;
 
@@ -26,16 +26,15 @@ public class InMemoryJavaCompiler {
 		final JavaByteObject outputJavaObject = new JavaByteObject(className);
 		StandardJavaFileManager standardFileManager = compiler.getStandardFileManager(diagnostics, null, null);
 
-		JavaFileManager fileManager = new JavaByteObjectFileManager(outputJavaObject, standardFileManager);
-
 		try {
+			JavaFileManager fileManager = new JavaByteObjectFileManager(outputJavaObject, standardFileManager);
 			JavaCompiler.CompilationTask task = compiler.getTask(null,
 					fileManager, diagnostics, null, null, getCompilationUnits(className, source));
 
 			if (!task.call()) {
 				diagnostics.getDiagnostics().forEach(System.out::println);
 			}
-		fileManager.close();
+			fileManager.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

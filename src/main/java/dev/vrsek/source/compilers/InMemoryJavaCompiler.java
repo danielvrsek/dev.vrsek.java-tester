@@ -1,4 +1,4 @@
-package dev.vrsek.utils.compilers.runtime;
+package dev.vrsek.source.compilers;
 
 import dev.vrsek.utils.reflect.DynamicURLClassLoader;
 

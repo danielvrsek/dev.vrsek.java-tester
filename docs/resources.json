@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "cz.fileNotFoundError": "Soubor nenalezen.",
+    "en.fileNotFoundError": "File was not found.",
+
+    "cz.invalidFile": "Neplatny soubor",
+    "en.invalidFile": "Invalid file"
+  },
+  "files": {
+    "cz.filename": "Nazev souboru",
+    "en.filename": "File name"
+  }
+}

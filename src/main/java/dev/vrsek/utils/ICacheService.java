@@ -1,7 +1,7 @@
 package dev.vrsek.utils;
 
-public interface ICacheService {
-	void add(String key, Object value);
+public interface ICacheService<TValue> {
+	void add(String key, TValue value);
 
-	Object get(String key);
+	TValue get(String key);
 }

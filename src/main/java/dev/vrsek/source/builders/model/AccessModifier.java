@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.core.source.builders.model;
+package dev.vrsek.source.builders.model;
 
 public enum AccessModifier {
 	PRIVATE,

@@ -1,6 +1,6 @@
 package dev.vrsek.javatester.modules.classfield;
 
-import dev.vrsek.javatester.core.source.builders.AccessModifierToModifierMapper;
+import dev.vrsek.source.builders.AccessModifierToModifierMapper;
 import dev.vrsek.javatester.modules.*;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModule;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModuleCollection;

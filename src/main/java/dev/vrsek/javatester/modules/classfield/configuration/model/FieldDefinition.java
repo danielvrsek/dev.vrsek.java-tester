@@ -1,6 +1,6 @@
 package dev.vrsek.javatester.modules.classfield.configuration.model;
 
-import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
+import dev.vrsek.source.builders.model.AccessModifier;
 
 public class FieldDefinition {
 	private AccessModifier accessModifier;

@@ -1,4 +1,4 @@
-package dev.vrsek.utils.compilers.runtime;
+package dev.vrsek.source.compilers;
 
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;

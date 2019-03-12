@@ -1,6 +1,6 @@
-package dev.vrsek.javatester.core.source.builders;
+package dev.vrsek.source.builders;
 
-import dev.vrsek.javatester.core.source.builders.model.AccessModifier;
+import dev.vrsek.source.builders.model.AccessModifier;
 import dev.vrsek.utils.IMapper;
 import dev.vrsek.utils.ISourceFormatter;
 import dev.vrsek.utils.exceptions.ValidationException;

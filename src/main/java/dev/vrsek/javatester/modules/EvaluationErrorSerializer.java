@@ -30,7 +30,11 @@ public class EvaluationErrorSerializer {
 
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int i = identifiers.size() - 1; i >= 0; i--) {
-			stringBuilder.append("." + identifiers.get(i));
+			if (i < identifiers.size() - 1) {
+				stringBuilder.append(".");
+			}
+
+			stringBuilder.append(identifiers.get(i));
 		}
 
 		return stringBuilder.toString();

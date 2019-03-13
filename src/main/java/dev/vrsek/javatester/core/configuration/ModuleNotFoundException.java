@@ -1,4 +1,4 @@
-package dev.vrsek.javatester.core.configuration.classtest.exceptions;
+package dev.vrsek.javatester.core.configuration;
 
 public class ModuleNotFoundException extends Exception {
 	public ModuleNotFoundException(String moduleIdentifier) {

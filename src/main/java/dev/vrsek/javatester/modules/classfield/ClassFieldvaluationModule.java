@@ -1,12 +1,11 @@
 package dev.vrsek.javatester.modules.classfield;
 
-import dev.vrsek.source.builders.AccessModifierToModifierMapper;
 import dev.vrsek.javatester.modules.*;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModule;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModuleCollection;
 import dev.vrsek.javatester.modules.classfield.configuration.model.EvaluationMethod;
 import dev.vrsek.javatester.modules.classfield.configuration.model.FieldDefinition;
-import dev.vrsek.utils.reflect.ClassLoader;
+import dev.vrsek.source.builders.AccessModifierToModifierMapper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -28,15 +27,6 @@ public class ClassFieldvaluationModule implements IEvaluationModule<ClassFieldMo
 	public void evaluate(ClassFieldModuleCollection configurationCollection, RootEvaluationContext context) {
 		EvaluationContext childContext = new EvaluationContext(MODULE_IDENTIFIER);
 		context.addChildContext(childContext);
-
-		Class type = null;
-		try {
-			type = ClassLoader.load(context.getEvaluatedClassLocation());
-		} catch (ClassNotFoundException e) {
-			childContext.addEvaluationError(
-					new EvaluationError(String.format("Evaluated class '%s' was not found.", context.getEvaluatedClassLocation()))
-			);
-		}
 
 		for (var configuration : configurationCollection.getClassFieldModules()) {
 			evaluate(type, configuration, context);

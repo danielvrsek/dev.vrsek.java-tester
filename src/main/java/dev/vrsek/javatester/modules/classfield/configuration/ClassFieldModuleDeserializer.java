@@ -3,7 +3,7 @@ package dev.vrsek.javatester.modules.classfield.configuration;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import dev.vrsek.javatester.core.configuration.classtest.IModuleDeserializer;
+import dev.vrsek.javatester.core.configuration.IModuleDeserializer;
 import dev.vrsek.javatester.modules.classfield.ClassFieldvaluationModule;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModule;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModuleCollection;

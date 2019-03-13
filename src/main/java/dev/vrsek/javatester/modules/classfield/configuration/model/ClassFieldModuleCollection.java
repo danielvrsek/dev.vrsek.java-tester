@@ -1,6 +1,6 @@
 package dev.vrsek.javatester.modules.classfield.configuration.model;
 
-import dev.vrsek.javatester.core.configuration.classtest.model.Module;
+import dev.vrsek.javatester.core.configuration.model.Module;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,6 +1,5 @@
-package dev.vrsek.javatester.core.configuration.classtest.model;
+package dev.vrsek.javatester.core.configuration.model;
 
-import dev.vrsek.javatester.core.configuration.Configuration;
 import dev.vrsek.utils.Pair;
 
 import java.util.Collection;

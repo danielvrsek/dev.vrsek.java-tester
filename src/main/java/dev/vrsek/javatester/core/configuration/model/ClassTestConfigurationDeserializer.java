@@ -1,11 +1,10 @@
-package dev.vrsek.javatester.core.configuration.classtest;
+package dev.vrsek.javatester.core.configuration.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import dev.vrsek.javatester.core.configuration.IConfigurationDeserializer;
-import dev.vrsek.javatester.core.configuration.classtest.model.ClassTestConfiguration;
-import dev.vrsek.javatester.core.configuration.classtest.model.Module;
+import dev.vrsek.javatester.core.configuration.ModuleCollectionDeserializer;
 import dev.vrsek.javatester.modules.ReflectionModuleDeserializerLocator;
 import dev.vrsek.utils.Pair;
 

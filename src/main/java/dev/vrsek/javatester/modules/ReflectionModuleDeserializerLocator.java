@@ -1,6 +1,6 @@
 package dev.vrsek.javatester.modules;
 
-import dev.vrsek.javatester.core.configuration.classtest.IModuleDeserializer;
+import dev.vrsek.javatester.core.configuration.IModuleDeserializer;
 import dev.vrsek.utils.reflect.GenericReflectionClassLocator;
 
 public class ReflectionModuleDeserializerLocator extends GenericReflectionClassLocator<String, IModuleDeserializer> implements IModuleDeserializerLocator {

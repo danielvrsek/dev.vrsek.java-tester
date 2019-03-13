@@ -3,7 +3,7 @@ package dev.vrsek.javatester.modules.methodcall.configuration;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import dev.vrsek.javatester.core.configuration.classtest.IModuleDeserializer;
+import dev.vrsek.javatester.core.configuration.IModuleDeserializer;
 import dev.vrsek.javatester.modules.methodcall.MethodCallEvaluationModule;
 import dev.vrsek.javatester.modules.methodcall.configuration.model.MethodCallModule;
 import dev.vrsek.javatester.modules.methodcall.configuration.model.MethodCallModuleCollection;

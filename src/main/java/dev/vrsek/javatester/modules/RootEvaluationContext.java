@@ -1,17 +1,17 @@
 package dev.vrsek.javatester.modules;
 
 public class RootEvaluationContext extends EvaluationContext {
-	private String evaluatedClassLocation;
+	private Class evaluatedClass;
 
 	public RootEvaluationContext(String name) {
 		super(name);
 	}
 
-	public String getEvaluatedClassLocation() {
-		return evaluatedClassLocation;
+	public Class getEvaluatedClassLocation() {
+		return evaluatedClass;
 	}
 
-	protected void setEvaluatedClassLocation(String evaluatedClassLocation) {
-		this.evaluatedClassLocation = evaluatedClassLocation;
+	protected void setEvaluatedClass(Class evaluatedClass) {
+		this.evaluatedClass = evaluatedClass;
 	}
 }

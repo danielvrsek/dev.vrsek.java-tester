@@ -1,9 +1,8 @@
-package dev.vrsek.javatester.core.configuration.classtest;
+package dev.vrsek.javatester.core.configuration;
 
 import com.google.common.collect.Iterables;
 import com.google.gson.*;
-import dev.vrsek.javatester.core.configuration.classtest.exceptions.ModuleNotFoundException;
-import dev.vrsek.javatester.core.configuration.classtest.model.Module;
+import dev.vrsek.javatester.core.configuration.model.Module;
 import dev.vrsek.javatester.modules.IModuleDeserializerLocator;
 import dev.vrsek.utils.Pair;
 

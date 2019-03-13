@@ -1,18 +1,21 @@
 package dev.vrsek.source.builders;
 
 import dev.vrsek.source.builders.model.AccessModifier;
+import dev.vrsek.utils.IMapper;
 import dev.vrsek.utils.exceptions.ValidationException;
 import dev.vrsek.utils.validators.IValidator;
 import dev.vrsek.utils.validators.NotNullObjectValidator;
 import dev.vrsek.utils.validators.NotNullOrEmptyStringValidator;
 
 public class JavaFieldSourceBuilder implements IMemberSourceBuilder {
+	private final IMapper<AccessModifier, String> accessModifierStringIMapper;
 	private AccessModifier accessModifier;
 	private String typeName;
 	private String name;
 	private IValidator[] validators;
 
-	public JavaFieldSourceBuilder() {
+	public JavaFieldSourceBuilder(IMapper<AccessModifier, String> accessModifierStringIMapper) {
+		this.accessModifierStringIMapper = accessModifierStringIMapper;
 		accessModifier = AccessModifier.PUBLIC;
 		initializeValidators();
 	}
@@ -27,7 +30,6 @@ public class JavaFieldSourceBuilder implements IMemberSourceBuilder {
 
 	@Override
 	public void setAccessModifier(AccessModifier accessModifier) {
-
 		this.accessModifier = accessModifier;
 	}
 
@@ -46,7 +48,7 @@ public class JavaFieldSourceBuilder implements IMemberSourceBuilder {
 	public String build() throws ValidationException {
 		validate();
 
-		return String.format("%s %s %s;", accessModifier, typeName, name);
+		return String.format("%s %s %s;", accessModifierStringIMapper.map(accessModifier), typeName, name);
 	}
 
 	private void validate() throws ValidationException {

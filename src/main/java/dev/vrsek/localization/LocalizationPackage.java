@@ -14,6 +14,10 @@ public class LocalizationPackage implements ILocalizationSource {
 		localizationStrings = new Hashtable<>();
 	}
 
+	protected Hashtable<String, LocalizationString> getLocalizationStrings() {
+		return localizationStrings;
+	}
+
 	public void addLocalizationString(LocalizationString localizationString) {
 		localizationStrings.put(localizationString.getResourceName(), localizationString);
 	}

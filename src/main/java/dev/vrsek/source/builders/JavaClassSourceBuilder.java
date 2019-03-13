@@ -9,6 +9,7 @@ import dev.vrsek.utils.validators.NotNullObjectValidator;
 import dev.vrsek.utils.validators.NotNullOrEmptyStringValidator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,6 +67,11 @@ public class JavaClassSourceBuilder implements IClassSourceBuilder {
 	@Override
 	public void addImports(String... imports) {
 		Collections.addAll(this.imports, imports);
+	}
+
+	@Override
+	public void addMembers(Collection<IMemberSourceBuilder> members) {
+		this.members.addAll(members);
 	}
 
 	@Override

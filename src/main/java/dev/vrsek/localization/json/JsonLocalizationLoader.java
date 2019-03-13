@@ -15,7 +15,7 @@ public class JsonLocalizationLoader implements ILocalizationLoader {
 	public void load(Locale locale) {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Localization.class, new LocalizationJsonDeserializer<Localization>(Localization::new));
-		gsonBuilder.registerTypeAdapter(LocalizationPackage.class, new LocalizationPackageJsonDeserializer(locale));
+		gsonBuilder.registerTypeAdapter(LocalizationPackage.class, new LocalizationPackageJsonDeserializer<LocalizationPackage>(locale, LocalizationPackage::new));
 
 		Gson gson = gsonBuilder.create();
 		Localization localization = gson.fromJson(json, Localization.class);

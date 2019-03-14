@@ -4,13 +4,13 @@
   "evaluationModules": {
     "external": {
       "classPath": "C:\\Dev\\java-tester\\Test_05.java",
-      "method": {
-        "methods": [
-          {
-            "name": "test",
-            "resultOf": "getTestName"
-          }
-        ]
+      "includeDirectory":"C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\",
+      "subModules": {
+        "method": {
+          "name": "test",
+          "resultOf": "getFixtureObjects",
+          "resultType": "eu.pedu.ofpa1_19s.vehicle.Vehicles_05"
+        }
       }
     },
     "methodcall": [

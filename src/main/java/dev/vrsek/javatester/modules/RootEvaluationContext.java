@@ -1,5 +1,6 @@
 package dev.vrsek.javatester.modules;
 
+// TODO: find more suitable name
 public class RootEvaluationContext extends EvaluationContext {
 	private Class evaluatedClass;
 

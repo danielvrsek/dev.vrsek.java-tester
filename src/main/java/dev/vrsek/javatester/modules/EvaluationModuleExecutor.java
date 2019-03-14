@@ -21,27 +21,23 @@ public class EvaluationModuleExecutor {
 		this.evaluationModuleLocator = evaluationModuleLocator;
 	}
 
-	public void execute(ClassTestConfiguration classTestConfiguration) throws FileNotFoundException, MalformedURLException, URISyntaxException, ClassNotFoundException {
+	public void execute(ClassTestConfiguration classTestConfiguration, String evaluatedClassLocation, String[] includeDirectories) throws FileNotFoundException, MalformedURLException, URISyntaxException, ClassNotFoundException {
 		RootEvaluationContext context = new RootEvaluationContext("");
 		// TODO: Test if class path ends with .java
 
-		String classPath = classTestConfiguration.getClassPath();
-		String includeDirectory = classTestConfiguration.getIncludeDirectory();
-
-		assert classPath != null;
-
-		if (includeDirectory != null && !includeDirectory.isEmpty()) {
-			File dir = new File(includeDirectory);
-			if (!dir.exists()) {
+		// Validate that include directories exist
+		for (String includeDirectory : includeDirectories) {
+			if (!validateIncludeDirectory(includeDirectory)) {
 				throw new FileNotFoundException(String.format("Specified include directory '%s' was not found.", includeDirectory));
 			}
 		}
+
 		// TODO: Divide into methods
 
-		List<String> options = Arrays.asList("-classpath", includeDirectory);
+		List<String> options = Arrays.asList("-classpath", serializeIncludeDirectories(includeDirectories));
 
 		InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
-		Class compiledClass = compiler.compile(getClassName(classPath), getClassSource(classPath), options);
+		Class compiledClass = compiler.compile(getClassName(evaluatedClassLocation), getClassSource(evaluatedClassLocation), options);
 
 		context.setEvaluatedClass(compiledClass);
 
@@ -70,5 +66,28 @@ public class EvaluationModuleExecutor {
 			}
 			return fileContents.toString();
 		}
+	}
+
+	private String serializeIncludeDirectories(String[] includeDirectories) {
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (int i = 0; i < includeDirectories.length; i++) {
+			if (i != 0) {
+				stringBuilder.append(";");
+			}
+
+			stringBuilder.append(includeDirectories[i]);
+		}
+
+		return stringBuilder.toString();
+	}
+
+	private boolean validateIncludeDirectory(String includeDirectory) {
+		if (includeDirectory != null && !includeDirectory.isEmpty()) {
+			File dir = new File(includeDirectory);
+			return dir.exists();
+		}
+
+		return false;
 	}
 }

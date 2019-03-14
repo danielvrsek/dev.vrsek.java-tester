@@ -1,6 +1,4 @@
 {
-  "includeDirectory":"C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\",
-  "classPath": "C:\\Dev\\java-tester\\TestClass.java",
   "evaluationModules": {
     "external": {
       "classPath": "C:\\Dev\\java-tester\\Test_05.java",

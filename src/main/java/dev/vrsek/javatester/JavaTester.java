@@ -15,7 +15,11 @@ public class JavaTester {
 		ClassTestConfiguration configuration = deserializer.deserialize(readConfig());
 
 		EvaluationModuleExecutor executor = new EvaluationModuleExecutor(new ReflectionEvaluationModuleLocator());
-		executor.execute(configuration);
+
+		String classPath = "C:\\Dev\\java-tester\\TestClass.java";
+		String includeDirectory = "C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\";
+
+		executor.execute(configuration, classPath, new String[] { includeDirectory });
 	}
 
 	private static String readConfig() throws FileNotFoundException {

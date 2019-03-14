@@ -7,7 +7,7 @@ public class RootEvaluationContext extends EvaluationContext {
 		super(name);
 	}
 
-	public Class getEvaluatedClassLocation() {
+	public Class getEvaluatedClass() {
 		return evaluatedClass;
 	}
 

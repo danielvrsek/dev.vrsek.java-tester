@@ -1,5 +1,6 @@
 package dev.vrsek.utils.reflect;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collections;
@@ -16,14 +17,31 @@ public class DynamicURLClassLoader extends URLClassLoader {
 		return instance;
 	}
 
+	public static void refresh(URL url, java.lang.ClassLoader classLoader) {
+		instance = new DynamicURLClassLoader(url, classLoader);
+	}
+
+	private DynamicURLClassLoader(URL url, java.lang.ClassLoader parent) {
+		super(new URL[] { url }, parent);
+	}
+
 	private DynamicURLClassLoader() {
 		super(new URL[0]);
 	}
 
 	@Override
+	public URL getResource(String name) {
+		return super.getResource(name);
+	}
+
+	@Override
+	public InputStream getResourceAsStream(String name) {
+		return super.getResourceAsStream(name);
+	}
+
+	@Override
 	public void addURL(URL url) {
 		super.addURL(url);
-		System.out.println(url.toString());
 	}
 
 	public void addURLs(Enumeration<URL> urls) {

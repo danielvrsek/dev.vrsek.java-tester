@@ -1,18 +1,33 @@
 package dev.vrsek.javatester;
 
+import dev.vrsek.javatester.core.configuration.ClassTestConfigurationDeserializer;
 import dev.vrsek.javatester.core.configuration.model.ClassTestConfiguration;
-import dev.vrsek.javatester.core.configuration.model.ClassTestConfigurationDeserializer;
 import dev.vrsek.javatester.modules.EvaluationModuleExecutor;
 import dev.vrsek.javatester.modules.ReflectionEvaluationModuleLocator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class JavaTester {
 	public static void main(String[] args) throws Exception {
-		String json = "{\"evaluatedMethodName\":\"testMethod\",\"evaluationModules\":[{\"methodcall\":[{\"name\":\"someMethod_du_05_19\",\"description\":\"Domaci ukol - volani testovaci metody\",\"type\":\"test.package.DependentClass\",\"methods\":[{\"name\":\"someMethod\",\"parameters\":[{\"type\":\"java.lang.String\",\"name\":\"param1\"},{\"type\":\"java.lang.Integer\",\"name\":\"param2\"}],\"callCount\":1,\"evaluationBehavior\":\"strict\"}]}]},{\"classfield\":[{\"name\":\"testField_du_05_19\",\"description\":\"Domaci ukol - existence privatniho atributu\",\"fields\":[{\"evaluation\":\"EXISTS\",\"name\":\"testField\",\"type\":\"java.lang.String\",\"accessModifier\":\"PRIVATE\"}]}]}]}";
-
 		ClassTestConfigurationDeserializer deserializer = new ClassTestConfigurationDeserializer();
-		ClassTestConfiguration configuration = deserializer.deserialize(json);
+		ClassTestConfiguration configuration = deserializer.deserialize(readConfig());
 
 		EvaluationModuleExecutor executor = new EvaluationModuleExecutor(new ReflectionEvaluationModuleLocator());
 		executor.execute(configuration);
+	}
+
+	private static String readConfig() throws FileNotFoundException {
+		File cfg = new File("testclass.config.json");
+
+		StringBuilder sb = new StringBuilder();
+
+		try (Scanner scanner = new Scanner(cfg)) {
+			while (scanner.hasNextLine()) {
+				sb.append(scanner.nextLine());
+			}
+			return sb.toString();
+		}
 	}
 }

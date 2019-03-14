@@ -3,9 +3,12 @@ package dev.vrsek.source.compilers;
 import dev.vrsek.utils.reflect.DynamicURLClassLoader;
 
 import javax.tools.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.List;
 
 public class InMemoryJavaCompiler {
 	private final DefineClass defineClass;
@@ -19,6 +22,16 @@ public class InMemoryJavaCompiler {
 	}
 
 	public Class compile(String className, String source) throws URISyntaxException {
+		try {
+			return compile(className, source, null);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public Class compile(String className, String source, List<String> options) throws URISyntaxException, MalformedURLException {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
 		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
@@ -29,7 +42,7 @@ public class InMemoryJavaCompiler {
 		try {
 			JavaFileManager fileManager = new JavaByteObjectFileManager(outputJavaObject, standardFileManager);
 			JavaCompiler.CompilationTask task = compiler.getTask(null,
-					fileManager, diagnostics, null, null, getCompilationUnits(className, source));
+					fileManager, diagnostics, options, null, getCompilationUnits(className, source));
 
 			if (!task.call()) {
 				diagnostics.getDiagnostics().forEach(System.out::println);
@@ -39,10 +52,14 @@ public class InMemoryJavaCompiler {
 			e.printStackTrace();
 		}
 
+		File f = new File("C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\");
+
+		DynamicURLClassLoader.getInstance().addURL(f.toURI().toURL());
+
 		return defineClass.defineClass(className, outputJavaObject.getBytes());
 	}
 
-	public Iterable<? extends JavaFileObject> getCompilationUnits(String className, String source) throws URISyntaxException, IOException {
+	private Iterable<? extends JavaFileObject> getCompilationUnits(String className, String source) throws URISyntaxException, IOException {
 		JavaStringObject stringObject = new JavaStringObject(className, source);
 		return Arrays.asList(stringObject);
 	}

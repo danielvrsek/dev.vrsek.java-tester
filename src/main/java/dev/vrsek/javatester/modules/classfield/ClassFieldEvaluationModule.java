@@ -10,11 +10,11 @@ import dev.vrsek.source.builders.AccessModifierToModifierMapper;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-public class ClassFieldvaluationModule implements IEvaluationModule<ClassFieldModuleCollection> {
+public class ClassFieldEvaluationModule implements IEvaluationModule<ClassFieldModuleCollection> {
 	public static final String MODULE_IDENTIFIER = "classfield";
 	private final AccessModifierToModifierMapper accessModifierToModifierMapper;
 
-	public ClassFieldvaluationModule() {
+	public ClassFieldEvaluationModule() {
 		this.accessModifierToModifierMapper = new AccessModifierToModifierMapper();
 	}
 
@@ -29,7 +29,7 @@ public class ClassFieldvaluationModule implements IEvaluationModule<ClassFieldMo
 		context.addChildContext(childContext);
 
 		for (var configuration : configurationCollection.getClassFieldModules()) {
-			evaluate(type, configuration, context);
+			evaluate(context.getEvaluatedClass(), configuration, context);
 		}
 	}
 

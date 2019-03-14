@@ -1,14 +1,16 @@
 package dev.vrsek.javatester.core.configuration;
 
-import com.google.common.collect.Iterables;
 import com.google.gson.*;
 import dev.vrsek.javatester.core.configuration.model.Module;
 import dev.vrsek.javatester.modules.IModuleDeserializerLocator;
 import dev.vrsek.utils.Pair;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class ModuleCollectionDeserializer implements JsonDeserializer<Pair<String, Module>> {
+public class ModuleCollectionDeserializer implements JsonDeserializer<Collection<Pair<String, Module>>> {
 	private final IModuleDeserializerLocator moduleLocator;
 
 	public ModuleCollectionDeserializer(IModuleDeserializerLocator moduleLocator) {
@@ -16,21 +18,21 @@ public class ModuleCollectionDeserializer implements JsonDeserializer<Pair<Strin
 	}
 
 	@Override
-	public Pair<String, Module> deserialize(JsonElement jsonElement,
-														Type type,
-														JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-
+	public Collection<Pair<String, Module>> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+		List<Pair<String, Module>> modules = new ArrayList<>();
 		JsonObject jObject = jsonElement.getAsJsonObject();
-		String key = Iterables.getOnlyElement(jObject.keySet());
 
-		IModuleDeserializer<Module> moduleDeserializer = moduleLocator.find(key);
+		for (String key : jObject.keySet()) {
+			IModuleDeserializer<Module> moduleDeserializer = moduleLocator.find(key);
 
-		if (moduleDeserializer == null) {
-			throw new JsonParseException(new ModuleNotFoundException(key));
+			if (moduleDeserializer == null) {
+				throw new JsonParseException(new ModuleNotFoundException(key));
+			}
+
+			Module module = moduleDeserializer.deserialize(jObject.get(key), type, jsonDeserializationContext);
+			modules.add(new Pair<>(key, module));
 		}
 
-		Module module = moduleDeserializer.deserialize(jObject.get(key), type, jsonDeserializationContext);
-
-		return new Pair<>(key, module);
+		return modules;
 	}
 }

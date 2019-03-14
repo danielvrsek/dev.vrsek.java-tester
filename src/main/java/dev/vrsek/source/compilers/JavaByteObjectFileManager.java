@@ -14,6 +14,11 @@ public class JavaByteObjectFileManager extends ForwardingJavaFileManager<Standar
 		this.byteObject = byteObject;
 	}
 
+	/*@Override
+	public ClassLoader getClassLoader(Location location) {
+		return DynamicURLClassLoader.getInstance();
+	}*/
+
 	@Override
 	public JavaFileObject getJavaFileForOutput(Location location,
 											   String className, JavaFileObject.Kind kind,

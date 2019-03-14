@@ -1,0 +1,58 @@
+{
+  "includeDirectory":"C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\",
+  "classPath": "C:\\Dev\\java-tester\\TestClass.java",
+  "evaluationModules": {
+    "external": {
+      "classPath": "C:\\Dev\\java-tester\\Test_05.java",
+      "method": {
+        "methods": [
+          {
+            "name": "test",
+            "resultOf": "getTestName"
+          }
+        ]
+      }
+    },
+    "methodcall": [
+      {
+        "name": "someMethod_du_05_19",
+        "description": "Domaci ukol - volani testovaci metody",
+        "type": "test.package.DependentClass",
+        "methods": [
+          {
+            "name": "someMethod",
+            "parameters": [
+              {
+                "type": "java.lang.String",
+                "name": "param1"
+              },
+              {
+                "type": "java.lang.Integer",
+                "name": "param2"
+              }
+            ],
+            "callCount": 1,
+            "evaluationBehavior": "strict"
+          }
+        ]
+      }
+    ],
+    "classfield": [
+      {
+        "name": "testField_du_05_19",
+        "description": "Domaci ukol - existence privatniho atributu",
+        "fields": [
+          {
+            "evaluation": "EXISTS",
+            "name": "testField2",
+            "type": "java.lang.String",
+            "accessModifier": "PRIVATE"
+          }
+        ]
+      }
+    ],
+    "inheritance": {
+      "inheritedType": "eu.pedu.ofpa1_19s.vehicle.IVehicleTest_05"
+    }
+  }
+}

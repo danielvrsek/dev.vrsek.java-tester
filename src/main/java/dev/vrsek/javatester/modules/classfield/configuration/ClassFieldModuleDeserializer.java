@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import dev.vrsek.javatester.core.configuration.IModuleDeserializer;
-import dev.vrsek.javatester.modules.classfield.ClassFieldvaluationModule;
+import dev.vrsek.javatester.modules.classfield.ClassFieldEvaluationModule;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModule;
 import dev.vrsek.javatester.modules.classfield.configuration.model.ClassFieldModuleCollection;
 
@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class ClassFieldModuleDeserializer implements IModuleDeserializer<ClassFieldModuleCollection> {
 	@Override
 	public String getModuleIdentifier() {
-		return ClassFieldvaluationModule.MODULE_IDENTIFIER;
+		return ClassFieldEvaluationModule.MODULE_IDENTIFIER;
 	}
 
 	@Override

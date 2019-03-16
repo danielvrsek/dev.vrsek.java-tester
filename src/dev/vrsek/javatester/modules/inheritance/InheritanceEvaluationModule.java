@@ -1,6 +1,5 @@
 package dev.vrsek.javatester.modules.inheritance;
 
-import com.google.common.collect.Iterables;
 import dev.vrsek.javatester.modules.EvaluationContext;
 import dev.vrsek.javatester.modules.EvaluationError;
 import dev.vrsek.javatester.modules.IEvaluationModule;
@@ -37,7 +36,7 @@ public class InheritanceEvaluationModule implements IEvaluationModule<Inheritanc
 	private boolean inheritsFromInterface(Class evaluatedClass, String interfaceType) {
 		List<Class> interfaces = Arrays.asList(evaluatedClass.getInterfaces());
 
-		return Iterables.any(interfaces, x -> x.getTypeName().equals(interfaceType));
+		return interfaces.stream().anyMatch(x -> x.getTypeName().equals(interfaceType));
 	}
 
 	private boolean inheritsFromClass(Class evaluatedClass, String classType) {

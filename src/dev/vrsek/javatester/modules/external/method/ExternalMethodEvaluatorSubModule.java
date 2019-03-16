@@ -21,16 +21,8 @@ public class ExternalMethodEvaluatorSubModule {
 
 			Object result = evaluatedMethod.invoke(evaluatedObject);
 			testMethod.invoke(testObject, result);
-		} catch (NoSuchMethodException e) {
+		} catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
 			// TODO: Error handling - evaluation error
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO: Error handling - evaluation error
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO: Error handling - evaluation error
-			e.printStackTrace();
-		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
 

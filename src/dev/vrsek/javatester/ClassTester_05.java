@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ClassTester_05 {
-	private static String submittedPackagesBase = "eu.pedu.ofpa1_19s";
 	private static String classDir = "C:\\Tests\\build\\classes\\";
 
 	public static void main(String[] args) throws Exception {
@@ -26,6 +25,7 @@ public class ClassTester_05 {
 		Collection<String> submittedPackages = readPackages();
 
 		for (String submittedPackage : submittedPackages) {
+			String submittedPackagesBase = "eu.pedu.ofpa1_19s";
 			String fullPackageName = submittedPackagesBase + "." + submittedPackage;
 
 			if (!packageExists(fullPackageName)) {
@@ -135,6 +135,10 @@ public class ClassTester_05 {
 		}
 
 		File [] files = dir.listFiles((dir1, name) -> name.endsWith("Factory.class"));
+
+		if (files == null) {
+			return null;
+		}
 
 		return Arrays.stream(files).map(x -> pckg + "." + x.getName().replace(".class", "")).findFirst().orElse(null);
 	}

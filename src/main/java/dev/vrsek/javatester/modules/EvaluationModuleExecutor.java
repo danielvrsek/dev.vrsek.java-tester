@@ -21,6 +21,21 @@ public class EvaluationModuleExecutor {
 		this.evaluationModuleLocator = evaluationModuleLocator;
 	}
 
+	public void execute(ClassTestConfiguration classTestConfiguration, Class evaluatedClass) throws FileNotFoundException, MalformedURLException, URISyntaxException, ClassNotFoundException {
+		RootEvaluationContext context = new RootEvaluationContext("");
+		context.setEvaluatedClass(evaluatedClass);
+
+		for (var module : classTestConfiguration.getModules()) {
+			IEvaluationModule moduleEvaluator = evaluationModuleLocator.find(module.getKey());
+
+			moduleEvaluator.evaluate(module.getValue(), context);
+		}
+
+
+		String errors = new EvaluationErrorSerializer().serialize(context);
+		System.out.println(errors);
+	}
+
 	public void execute(ClassTestConfiguration classTestConfiguration, String evaluatedClassLocation, String[] includeDirectories) throws FileNotFoundException, MalformedURLException, URISyntaxException, ClassNotFoundException {
 		RootEvaluationContext context = new RootEvaluationContext("");
 		// TODO: Test if class path ends with .java
@@ -39,12 +54,18 @@ public class EvaluationModuleExecutor {
 		InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
 		Class compiledClass = compiler.compile(getClassName(evaluatedClassLocation), getClassSource(evaluatedClassLocation), options);
 
-		context.setEvaluatedClass(compiledClass);
+		if (compiledClass != null) {
+			context.setEvaluatedClass(compiledClass);
 
-		for (var module : classTestConfiguration.getModules()) {
-			IEvaluationModule moduleEvaluator = evaluationModuleLocator.find(module.getKey());
+			for (var module : classTestConfiguration.getModules()) {
+				IEvaluationModule moduleEvaluator = evaluationModuleLocator.find(module.getKey());
 
-			moduleEvaluator.evaluate(module.getValue(), context);
+				moduleEvaluator.evaluate(module.getValue(), context);
+			}
+		} else {
+			context.addEvaluationError(
+					new EvaluationError("Compilation error.")
+			);
 		}
 
 		String errors = new EvaluationErrorSerializer().serialize(context);

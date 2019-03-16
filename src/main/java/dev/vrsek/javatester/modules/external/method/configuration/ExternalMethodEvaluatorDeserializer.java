@@ -8,6 +8,7 @@ import dev.vrsek.javatester.modules.external.method.configuration.model.External
 
 import java.lang.reflect.Type;
 
+// TODO: submodule deserializer
 public class ExternalMethodEvaluatorDeserializer implements JsonDeserializer<ExternalMethodEvaluation> {
 	@Override
 	public ExternalMethodEvaluation deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {

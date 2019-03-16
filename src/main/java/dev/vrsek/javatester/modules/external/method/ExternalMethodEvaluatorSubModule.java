@@ -16,8 +16,8 @@ public class ExternalMethodEvaluatorSubModule {
 			Object evaluatedObject = evaluatedClass.getConstructor().newInstance();
 			Object testObject = externalClass.getConstructor().newInstance();
 
-			Method evaluatedMethod = findMethod(evaluatedClass, configuration.getResultOf());
-			Method testMethod = findMethod(externalClass, configuration.getName());
+			Method evaluatedMethod = findMethod(evaluatedClass, configuration.getResultOfMethod());
+			Method testMethod = findMethod(externalClass, configuration.getEvaluationMethodName());
 
 			Object result = evaluatedMethod.invoke(evaluatedObject);
 			testMethod.invoke(testObject, result);
@@ -34,7 +34,7 @@ public class ExternalMethodEvaluatorSubModule {
 			e.printStackTrace();
 		}
 
-		System.out.println(configuration.getName());
+		System.out.println(configuration.getEvaluationMethodName());
 	}
 
 	private Method findMethod(Class type, String name) {

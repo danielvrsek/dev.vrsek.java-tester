@@ -1,10 +1,11 @@
-package dev.vrsek.javatester.modules.external.method.configuration.model;
+package dev.vrsek.javatester.modules.external.test.configuration.model;
 
 import dev.vrsek.javatester.modules.external.configuration.model.SubModule;
 
-public class ExternalMethodEvaluation extends SubModule {
+public class ExternalTestEvaluation extends SubModule {
 	private String evaluationMethodName;
 	private String resultOfMethod;
+	private String resultType;
 
 	public String getEvaluationMethodName() {
 		return evaluationMethodName;
@@ -20,5 +21,13 @@ public class ExternalMethodEvaluation extends SubModule {
 
 	public void setResultOfMethod(String resultOfMethod) {
 		this.resultOfMethod = resultOfMethod;
+	}
+
+	public String getResultType() {
+		return resultType;
+	}
+
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
 	}
 }

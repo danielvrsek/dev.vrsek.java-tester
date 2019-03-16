@@ -5,6 +5,7 @@ import dev.vrsek.javatester.core.configuration.model.Module;
 import java.util.ArrayList;
 import java.util.Collection;
 
+// TODO: follow pattern of configuration model names - MethodCallEvaluation
 public class MethodCallModuleCollection extends Module {
 	private final Collection<MethodCallModule> methodCallModules;
 

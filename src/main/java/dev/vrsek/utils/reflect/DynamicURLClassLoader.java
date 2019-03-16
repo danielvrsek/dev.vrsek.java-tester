@@ -9,7 +9,7 @@ import java.util.Enumeration;
 public class DynamicURLClassLoader extends URLClassLoader {
 	private static DynamicURLClassLoader instance;
 
-	public static DynamicURLClassLoader getInstance() {
+	protected static DynamicURLClassLoader getInstance() {
 		if (instance == null) {
 			instance = new DynamicURLClassLoader();
 		}
@@ -17,16 +17,12 @@ public class DynamicURLClassLoader extends URLClassLoader {
 		return instance;
 	}
 
-	public static void refresh(URL url, java.lang.ClassLoader classLoader) {
-		instance = new DynamicURLClassLoader(url, classLoader);
-	}
-
-	private DynamicURLClassLoader(URL url, java.lang.ClassLoader parent) {
-		super(new URL[] { url }, parent);
-	}
-
 	private DynamicURLClassLoader() {
-		super(new URL[0]);
+		super(new URL[0], java.lang.ClassLoader.getSystemClassLoader());
+	}
+
+	private DynamicURLClassLoader(URL url) {
+		super(new URL[] { url });
 	}
 
 	@Override

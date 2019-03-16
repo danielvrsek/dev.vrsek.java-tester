@@ -1,56 +1,17 @@
 {
   "evaluationModules": {
     "external": {
-      "classPath": "C:\\Dev\\java-tester\\Test_05.java",
-      "includeDirectory":"C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\",
+      "classPath": "C:\\Dev\\java-tester\\Test_05D.java",
+      "includeDirectory":"C:\\Tests\\build\\classes\\",
       "subModules": {
-        "method": {
-          "name": "test",
-          "resultOf": "getFixtureObjects",
-          "resultType": "eu.pedu.ofpa1_19s.vehicle.Vehicles_05"
-        }
-      }
-    },
-    "methodcall": [
-      {
-        "name": "someMethod_du_05_19",
-        "description": "Domaci ukol - volani testovaci metody",
-        "type": "test.package.DependentClass",
-        "methods": [
+        "test":
           {
-            "name": "someMethod",
-            "parameters": [
-              {
-                "type": "java.lang.String",
-                "name": "param1"
-              },
-              {
-                "type": "java.lang.Integer",
-                "name": "param2"
-              }
-            ],
-            "callCount": 1,
-            "evaluationBehavior": "strict"
+            "evaluationMethodName": "test",
+            "resultOfMethod": "getFixtureObjects",
+            "resultType": "eu.pedu.ofpa1_19s.vehicle.IVehicleFactory_05"
           }
-        ]
+
       }
-    ],
-    "classfield": [
-      {
-        "name": "testField_du_05_19",
-        "description": "Domaci ukol - existence privatniho atributu",
-        "fields": [
-          {
-            "evaluation": "EXISTS",
-            "name": "testField2",
-            "type": "java.lang.String",
-            "accessModifier": "PRIVATE"
-          }
-        ]
-      }
-    ],
-    "inheritance": {
-      "inheritedType": "eu.pedu.ofpa1_19s.vehicle.IVehicleTest_05"
     }
   }
 }

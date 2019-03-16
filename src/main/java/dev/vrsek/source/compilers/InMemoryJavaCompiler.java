@@ -1,9 +1,6 @@
 package dev.vrsek.source.compilers;
 
-import dev.vrsek.utils.reflect.DynamicURLClassLoader;
-
 import javax.tools.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -14,7 +11,7 @@ public class InMemoryJavaCompiler {
 	private final DefineClass defineClass;
 
 	public InMemoryJavaCompiler() {
-		this.defineClass = DynamicURLClassLoader.getInstance()::defineClass;
+		this.defineClass = dev.vrsek.utils.reflect.ClassLoader::defineClass;
 	}
 
 	public InMemoryJavaCompiler(DefineClass defineClass) {
@@ -40,21 +37,20 @@ public class InMemoryJavaCompiler {
 		StandardJavaFileManager standardFileManager = compiler.getStandardFileManager(diagnostics, null, null);
 
 		try {
-			JavaFileManager fileManager = new JavaByteObjectFileManager(outputJavaObject, standardFileManager);
-			JavaCompiler.CompilationTask task = compiler.getTask(null,
-					fileManager, diagnostics, options, null, getCompilationUnits(className, source));
+			try (JavaFileManager fileManager = new JavaByteObjectFileManager(outputJavaObject, standardFileManager)) {
+				JavaCompiler.CompilationTask task = compiler.getTask(null,
+						fileManager, diagnostics, options, null, getCompilationUnits(className, source));
 
-			if (!task.call()) {
-				diagnostics.getDiagnostics().forEach(System.out::println);
+				if (!task.call()) {
+					diagnostics.getDiagnostics().forEach(System.out::println);
+					return null;
+				}
 			}
-			fileManager.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		File f = new File("C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\build\\classes\\");
-
-		DynamicURLClassLoader.getInstance().addURL(f.toURI().toURL());
 
 		return defineClass.defineClass(className, outputJavaObject.getBytes());
 	}

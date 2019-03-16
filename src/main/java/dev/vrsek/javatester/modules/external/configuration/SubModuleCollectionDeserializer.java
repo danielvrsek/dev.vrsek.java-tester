@@ -3,6 +3,7 @@ package dev.vrsek.javatester.modules.external.configuration;
 import com.google.gson.*;
 import dev.vrsek.javatester.modules.external.configuration.model.SubModule;
 import dev.vrsek.javatester.modules.external.method.configuration.ExternalMethodEvaluatorDeserializer;
+import dev.vrsek.javatester.modules.external.test.configuration.ExternalTestEvaluatorDeserializer;
 import dev.vrsek.utils.Pair;
 
 import java.lang.reflect.Type;
@@ -24,9 +25,13 @@ public class SubModuleCollectionDeserializer implements JsonDeserializer<Collect
 
 				SubModule module = moduleDeserializer.deserialize(jObject.get(key), type, jsonDeserializationContext);
 				modules.add(new Pair<>(key, module));
+			} else if (key.equals("test")) {
+				var moduleDeserializer = new ExternalTestEvaluatorDeserializer();
+
+				SubModule module = moduleDeserializer.deserialize(jObject.get(key), type, jsonDeserializationContext);
+				modules.add(new Pair<>(key, module));
 			}
 		}
-
 
 		return modules;
 	}

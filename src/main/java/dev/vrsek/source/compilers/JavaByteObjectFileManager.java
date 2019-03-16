@@ -15,8 +15,9 @@ public class JavaByteObjectFileManager extends ForwardingJavaFileManager<Standar
 	}
 
 	/*@Override
-	public ClassLoader getClassLoader(Location location) {
-		return DynamicURLClassLoader.getInstance();
+	public java.lang.ClassLoader getClassLoader(Location location) {
+		// TODO: customizable class loader
+		return ClassLoader.getInstance();
 	}*/
 
 	@Override

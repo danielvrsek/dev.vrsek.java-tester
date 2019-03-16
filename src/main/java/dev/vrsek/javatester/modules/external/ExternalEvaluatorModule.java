@@ -6,11 +6,15 @@ import dev.vrsek.javatester.modules.RootEvaluationContext;
 import dev.vrsek.javatester.modules.external.configuration.model.ExternalEvaluation;
 import dev.vrsek.javatester.modules.external.method.ExternalMethodEvaluatorSubModule;
 import dev.vrsek.javatester.modules.external.method.configuration.model.ExternalMethodEvaluation;
+import dev.vrsek.javatester.modules.external.test.ExternalTestEvaluatorSubModule;
+import dev.vrsek.javatester.modules.external.test.configuration.model.ExternalTestEvaluation;
 import dev.vrsek.source.compilers.InMemoryJavaCompiler;
+import dev.vrsek.utils.reflect.ClassLoader;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -44,24 +48,32 @@ public class ExternalEvaluatorModule implements IEvaluationModule<ExternalEvalua
 
 		// TODO: check for include directory != null
 		List<String> options = Arrays.asList("-classpath", includeDirectory);
+		try {
+			ClassLoader.addUrl(new File(includeDirectory).toURI().toURL());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
 		InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
 
-		Class compiledClass;
-		try {
-			String className = getClassName(classPath);
-			String classSource = getClassSource(classPath);
+		String className = getClassName(classPath);
+		Class compiledClass = getClassDef(className);
 
-			compiledClass = compiler.compile(className, classSource, options);
-		} catch (Exception e) {
-			// TODO: remove prntln
-			e.printStackTrace();
+		if (compiledClass == null) {
+			try {
+				String classSource = getClassSource(classPath);
 
-			// TODO: error handling
-			context.addEvaluationError(
-					new EvaluationError(e.getMessage())
-			);
-			return;
+				compiledClass = compiler.compile(className, classSource, options);
+			} catch (Exception e) {
+				// TODO: remove prntln
+				e.printStackTrace();
+
+				// TODO: error handling
+				context.addEvaluationError(
+						new EvaluationError(e.getMessage())
+				);
+				return;
+			}
 		}
 
 		for (var module : configuration.getSubModules()) {
@@ -70,8 +82,21 @@ public class ExternalEvaluatorModule implements IEvaluationModule<ExternalEvalua
 				var moduleEvaluator = new ExternalMethodEvaluatorSubModule();
 				// TODO: new evaluation context
 				moduleEvaluator.evaluate(compiledClass, (ExternalMethodEvaluation)module.getValue(), context);
+			} else if (module.getKey().equals("test")) {
+				var moduleEvaluator = new ExternalTestEvaluatorSubModule();
+				moduleEvaluator.evaluate(compiledClass, (ExternalTestEvaluation)module.getValue(), context);
 			}
 		}
+	}
+
+	private Class getClassDef(String className) {
+		try {
+			return Class.forName(className, false, ClassLoader.getInstance());
+		} catch (ClassNotFoundException e) {
+			//e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	// TODO: remove duplicates from EvaluationModuleExecutor

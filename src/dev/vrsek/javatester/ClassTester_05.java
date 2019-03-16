@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class ClassTester {
+public class ClassTester_05 {
 	private static String submittedPackagesBase = "eu.pedu.ofpa1_19s";
 	private static String classDir = "C:\\Tests\\build\\classes\\";
 
@@ -29,13 +29,13 @@ public class ClassTester {
 			String fullPackageName = submittedPackagesBase + "." + submittedPackage;
 
 			if (!packageExists(fullPackageName)) {
-				Logger.log("- Spatny nazev balicku");
+				Logger.log("- Špatný název baličku");
 				continue;
 			}
 
 			String classIdentifier = getFactoryClass(fullPackageName);
 			if (classIdentifier == null) {
-				Logger.log("- V balicku se nenachazi tovarni trida nebo je ve spatnem balicku.");
+				Logger.log("- V balíčku se nenachazí tovarní třída nebo je ve špatnem balíčku.");
 				continue;
 			}
 
@@ -81,7 +81,7 @@ public class ClassTester {
 
 	private static String readConfig() throws FileNotFoundException {
 		// TODO: remove constants
-		File cfg = new File("testclass.config.json");
+		File cfg = new File("config/testclass.config.json");
 
 		StringBuilder sb = new StringBuilder();
 

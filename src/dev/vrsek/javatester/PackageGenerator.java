@@ -6,9 +6,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
-public class PackageTester {
+public class PackageGenerator {
 	public static void main(String[] args) throws Exception {
 		String sourceCodesPath = "C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\eu\\pedu\\ofpa1_19s";
 		Collection<String> allStudents = readAllStudents();
@@ -51,14 +51,7 @@ public class PackageTester {
 	private static Collection<String> readAllStudents() throws FileNotFoundException {
 		File cfg = new File("students.txt");
 
-		List<String> lines = new ArrayList<>();
-
-		try (Scanner scanner = new Scanner(cfg)) {
-			while (scanner.hasNextLine()) {
-				lines.add(scanner.nextLine());
-			}
-		}
-
-		return lines;
+		BufferedReader reader = new BufferedReader(new FileReader(cfg));
+		return reader.lines().collect(Collectors.toList());
 	}
 }

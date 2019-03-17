@@ -5,6 +5,7 @@ import dev.vrsek.source.builders.model.AccessModifier;
 public class FieldDefinition {
 	private AccessModifier accessModifier;
 	private String type;
+	private String parentType;
 	private String name;
 	private EvaluationMethod evaluation;
 
@@ -14,6 +15,10 @@ public class FieldDefinition {
 
 	public String getType() {
 		return type;
+	}
+
+	public String getParentType() {
+		return parentType;
 	}
 
 	public String getName() {

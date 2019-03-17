@@ -71,7 +71,13 @@ public class ClassFieldEvaluationModule implements IEvaluationModule<ClassFieldM
 		accessModifierEvaluator.evaluate(context);
 
 		// Evaluate type
-		IFieldEvaluator typeEvaluator = new FieldTypeEvaluator(field.getType(), configuration.getType());
+		IFieldEvaluator typeEvaluator;
+		if (configuration.getType() != null) {
+			typeEvaluator = new FieldTypeEvaluator(field.getType(), configuration.getType());
+		} else {
+			typeEvaluator = new FieldParentTypeEvaluator(field.getType(), configuration.getParentType());
+		}
+
 		typeEvaluator.evaluate(context);
 	}
 }

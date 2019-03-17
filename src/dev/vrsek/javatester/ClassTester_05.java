@@ -1,145 +1,105 @@
 package dev.vrsek.javatester;
 
 import dev.vrsek.javatester.core.configuration.ClassTestConfigurationDeserializer;
-import dev.vrsek.javatester.core.configuration.model.ClassTestConfiguration;
-import dev.vrsek.javatester.modules.EvaluationModuleExecutor;
-import dev.vrsek.javatester.modules.ReflectionEvaluationModuleLocator;
 import dev.vrsek.utils.Logger;
-import dev.vrsek.utils.reflect.ClassLoader;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.io.FileOutputStream;
 
 public class ClassTester_05 {
 	private static String classDir = "C:\\Tests\\build\\classes\\";
+	private static String submittedPackagesBase = "eu.pedu.ofpa1_19s";
 
 	public static void main(String[] args) throws Exception {
+		ClassTester tester = new ClassTester(classDir, submittedPackagesBase);
+
 		ClassTestConfigurationDeserializer deserializer = new ClassTestConfigurationDeserializer();
-		ClassTestConfiguration configuration = deserializer.deserialize(readConfig());
 
-		ClassLoader.addUrl(new File(classDir).toURI().toURL());
+		String[] submittedPackages = tester.readPackages("submittedPackages.txt").toArray(String[]::new);
 
-		Collection<String> submittedPackages = readPackages();
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("Damácí úkol 05");
 
-		for (String submittedPackage : submittedPackages) {
-			String submittedPackagesBase = "eu.pedu.ofpa1_19s";
-			String fullPackageName = submittedPackagesBase + "." + submittedPackage;
+		for (int i = 0; i < submittedPackages.length; i++) {
+			XSSFRow row = sheet.createRow(i);
 
-			if (!packageExists(fullPackageName)) {
+			String fullPackageName = submittedPackagesBase + "." + submittedPackages[i];
+
+			if (!tester.packageExists(fullPackageName)) {
 				Logger.log("- Špatný název baličku");
-				continue;
 			}
 
-			String classIdentifier = getFactoryClass(fullPackageName);
+			// Factory
+			String classIdentifier = tester.getClassName(fullPackageName, "Factory.class");
 			if (classIdentifier == null) {
 				Logger.log("- V balíčku se nenachazí tovarní třída nebo je ve špatnem balíčku.");
-				continue;
+			} else {
+				tester.evaluate(classIdentifier, deserializer.deserialize(tester.readConfig("config/factory.config.json")));
 			}
 
-			System.out.println("evaluating: " + classIdentifier);
-			Class evaluatedClass = getClassDef(classIdentifier, ClassLoader.getInstance());
-
-			if (evaluatedClass == null) {
-				continue;
+			// Test
+			classIdentifier = tester.getClassName(fullPackageName, "_Test.class");
+			if (classIdentifier == null) {
+				Logger.log("- V balíčku se nenachazí testovací třída nebo je ve špatnem balíčku.");
+			} else {
+				tester.evaluate(classIdentifier, deserializer.deserialize(tester.readConfig("config/test.config.json")));
 			}
 
-			EvaluationModuleExecutor executor = new EvaluationModuleExecutor(new ReflectionEvaluationModuleLocator());
-			try {
-				executor.execute(configuration, evaluatedClass);
-			} catch(Exception e) {
-				e.printStackTrace();
+			// VehicleN
+			classIdentifier = tester.getClassName(fullPackageName, "1N.class");
+			if (classIdentifier == null) {
+				Logger.log("- V balíčku se nenachazí 'VehicleN' nebo je ve špatnem balíčku.");
+			} else {
+				tester.evaluate(classIdentifier, deserializer.deserialize(tester.readConfig("config/vehicle.config.json")));
+			}
+
+			// VehicleE
+			classIdentifier = tester.getClassName(fullPackageName, "1E.class");
+			if (classIdentifier == null) {
+				Logger.log("- V balíčku se nenachazí 'VehicleE' nebo je ve špatnem balíčku.");
+			} else {
+				tester.evaluate(classIdentifier, deserializer.deserialize(tester.readConfig("config/vehicle.config.json")));
+			}
+
+			// VehicleW
+			classIdentifier = tester.getClassName(fullPackageName, "1W.class");
+			if (classIdentifier == null) {
+				Logger.log("- V balíčku se nenachazí 'VehicleW' nebo je ve špatnem balíčku.");
+			} else {
+				tester.evaluate(classIdentifier, deserializer.deserialize(tester.readConfig("config/vehicle.config.json")));
+			}
+
+			// VehicleS
+			classIdentifier = tester.getClassName(fullPackageName, "1S.class");
+			if (classIdentifier == null) {
+				Logger.log("- V balíčku se nenachazí 'VehicleS' je ve špatnem balíčku.");
+			} else {
+				tester.evaluate(classIdentifier, deserializer.deserialize(tester.readConfig("config/vehicle.config.json")));
 			}
 
 			Logger logger = Logger.refresh();
 
+			row.createCell(0).setCellValue(submittedPackages[i]);
+			StringBuilder sb = new StringBuilder();
 			for (String message : logger.getMessages()) {
-				System.out.println(message);
+				sb.append(" " + message).append("\r\n");
 			}
-		}
-	}
-
-	private static boolean packageExists(String packageName) {
-		Path dir = Paths.get(classDir, packageName.replace(".", "\\"));
-
-		return dir.toFile().exists();
-	}
-
-	private static Class getClassDef(String classIdentifier, java.lang.ClassLoader loader) {
-		try {
-			return Class.forName(classIdentifier, true, loader);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Could not find class: " + classIdentifier);
-		} catch (NoClassDefFoundError e) {
-			System.out.println("No class def found for: " + classIdentifier);
+			row.createCell(1).setCellValue(sb.toString());
+			XSSFCellStyle style = workbook.createCellStyle();
+			style.setWrapText(true);
+			row.setRowStyle(style);
+			row.setHeight((short)-1);
 		}
 
-		return null;
-	}
+		sheet.autoSizeColumn(0);
+		sheet.autoSizeColumn(1);
 
-	private static String readConfig() throws FileNotFoundException {
-		// TODO: remove constants
-		File cfg = new File("config/testclass.config.json");
-
-		StringBuilder sb = new StringBuilder();
-
-		try (Scanner scanner = new Scanner(cfg)) {
-			while (scanner.hasNextLine()) {
-				sb.append(scanner.nextLine());
-			}
-			return sb.toString();
-		}
-	}
-
-	private static Collection<String> readPackages() throws FileNotFoundException {
-		// TODO: remove constants
-		File cfg = new File("submittedPackages.txt");
-
-		List<String> lines = new ArrayList<>();
-
-		try (Scanner scanner = new Scanner(cfg)) {
-			while (scanner.hasNextLine()) {
-				lines.add(scanner.nextLine());
-			}
-		}
-
-		return lines;
-	}
-
-	private static Collection<String> parsePackages(Collection<String> lines) {
-		List<String> packageNames = new ArrayList<>();
-
-		String parentPackage = null;
-
-		for (String line : lines) {
-			if (line.startsWith(":")) {
-				parentPackage = line.substring(1);
-				continue;
-			}
-
-			packageNames.add(parentPackage + "/" + line);
-		}
-
-		return packageNames;
-	}
-
-	private static String getFactoryClass(String pckg) {
-		Path directory = Paths.get(classDir, pckg.replace(".", "\\"));
-
-		File dir = directory.toFile();
-
-		if (!dir.exists()) {
-			return null;
-		}
-
-		File [] files = dir.listFiles((dir1, name) -> name.endsWith("Factory.class"));
-
-		if (files == null) {
-			return null;
-		}
-
-		return Arrays.stream(files).map(x -> pckg + "." + x.getName().replace(".class", "")).findFirst().orElse(null);
+		String fileName = "domaciukol_05.xlsx";
+		FileOutputStream out = new FileOutputStream(fileName);
+		workbook.write(out);
+		out.close();
 	}
 }

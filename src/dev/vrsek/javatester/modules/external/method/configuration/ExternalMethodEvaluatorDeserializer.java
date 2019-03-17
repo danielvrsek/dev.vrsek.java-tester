@@ -1,17 +1,27 @@
 package dev.vrsek.javatester.modules.external.method.configuration;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
+import dev.vrsek.javatester.modules.external.method.configuration.model.ExternalMethodDefinition;
 import dev.vrsek.javatester.modules.external.method.configuration.model.ExternalMethodEvaluation;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO: submodule deserializer
 public class ExternalMethodEvaluatorDeserializer implements JsonDeserializer<ExternalMethodEvaluation> {
 	@Override
 	public ExternalMethodEvaluation deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-		return jsonDeserializationContext.deserialize(jsonElement, ExternalMethodEvaluation.class);
+		JsonArray jArray = jsonElement.getAsJsonArray();
+		List<ExternalMethodDefinition> definitions = new ArrayList<>();
+		ExternalMethodEvaluation externalMethodEvaluation = new ExternalMethodEvaluation();
+
+		for (JsonElement element : jArray) {
+			definitions.add(jsonDeserializationContext.deserialize(element, ExternalMethodDefinition.class));
+		}
+
+		externalMethodEvaluation.setExternalMethodDefinitions(definitions);
+
+		return externalMethodEvaluation;
 	}
 }

@@ -5,9 +5,7 @@ import dev.vrsek.javatester.modules.EvaluationError;
 import dev.vrsek.javatester.modules.IEvaluationModule;
 import dev.vrsek.javatester.modules.RootEvaluationContext;
 import dev.vrsek.javatester.modules.inheritance.configuration.model.InheritanceModule;
-
-import java.util.Arrays;
-import java.util.List;
+import dev.vrsek.utils.reflect.ClassUtils;
 
 public class InheritanceEvaluationModule implements IEvaluationModule<InheritanceModule> {
 	public static final String MODULE_IDENTIFIER = "inheritance";
@@ -24,24 +22,12 @@ public class InheritanceEvaluationModule implements IEvaluationModule<Inheritanc
 
 		Class evaluatedClass = rootContext.getEvaluatedClass();
 
-		if (!inheritsFromInterface(evaluatedClass, configuration.getInheritedType())
-			&& !inheritsFromClass(evaluatedClass, configuration.getInheritedType())) {
+		if (!ClassUtils.inheritsFromInterface(evaluatedClass, configuration.getInheritedType())
+			&& !ClassUtils.inheritsFromClass(evaluatedClass, configuration.getInheritedType())) {
 			context.addEvaluationError(
 					new EvaluationError("Class '%s' does not inherit from '%s'.", evaluatedClass.getTypeName(), configuration.getInheritedType())
 			);
 		}
 		// TODO: Error handling
-	}
-
-	private boolean inheritsFromInterface(Class evaluatedClass, String interfaceType) {
-		List<Class> interfaces = Arrays.asList(evaluatedClass.getInterfaces());
-
-		return interfaces.stream().anyMatch(x -> x.getTypeName().equals(interfaceType));
-	}
-
-	private boolean inheritsFromClass(Class evaluatedClass, String classType) {
-		Class superClass = evaluatedClass.getSuperclass();
-
-		return superClass.getTypeName().equals(classType);
 	}
 }

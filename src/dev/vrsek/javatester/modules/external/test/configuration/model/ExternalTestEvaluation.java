@@ -2,32 +2,16 @@ package dev.vrsek.javatester.modules.external.test.configuration.model;
 
 import dev.vrsek.javatester.modules.external.configuration.model.SubModule;
 
+import java.util.Collection;
+
 public class ExternalTestEvaluation extends SubModule {
-	private String evaluationMethodName;
-	private String resultOfMethod;
-	private String resultType;
+	private Collection<ExternalTestDefinition> externalTestDefinitions;
 
-	public String getEvaluationMethodName() {
-		return evaluationMethodName;
+	public Collection<ExternalTestDefinition> getExternalTestDefinitions() {
+		return externalTestDefinitions;
 	}
 
-	public void setEvaluationMethodName(String evaluationMethodName) {
-		this.evaluationMethodName = evaluationMethodName;
-	}
-
-	public String getResultOfMethod() {
-		return resultOfMethod;
-	}
-
-	public void setResultOfMethod(String resultOfMethod) {
-		this.resultOfMethod = resultOfMethod;
-	}
-
-	public String getResultType() {
-		return resultType;
-	}
-
-	public void setResultType(String resultType) {
-		this.resultType = resultType;
+	public void setExternalTestDefinitions(Collection<ExternalTestDefinition> externalTestDefinitions) {
+		this.externalTestDefinitions = externalTestDefinitions;
 	}
 }

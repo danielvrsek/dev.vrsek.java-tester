@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,49 +32,40 @@ public class ExternalEvaluatorModule implements IEvaluationModule<ExternalEvalua
 	@Override
 	public void evaluate(ExternalEvaluation configuration, RootEvaluationContext context) {
 		String classPath = configuration.getClassPath();
-		String includeDirectory = configuration.getIncludeDirectory();
+		Collection<String> includeDirectories = configuration.getIncludeDirectories();
 
 		assert classPath != null;
 
-		if (includeDirectory != null && !includeDirectory.isEmpty()) {
-			File dir = new File(includeDirectory);
-			if (!dir.exists()) {
-				context.addEvaluationError(
-						new EvaluationError(String.format("Specified include directory '%s' was not found.", includeDirectory))
-				);
-				return;
+		for (String includeDirectory : includeDirectories) {
+			if (includeDirectory != null && !includeDirectory.isEmpty()) {
+				File dir = new File(includeDirectory);
+				if (!dir.exists()) {
+					context.addEvaluationError(
+							new EvaluationError(String.format("Specified include directory '%s' was not found.", includeDirectory))
+					);
+					return;
+				}
+			}
+
+			// TODO: check for include directory != null
+			try {
+				ClassLoader.addUrl(new File(includeDirectory).toURI().toURL());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
 			}
 		}
-		// TODO: Divide into methods
 
-		// TODO: check for include directory != null
-		List<String> options = Arrays.asList("-classpath", includeDirectory);
-		try {
-			ClassLoader.addUrl(new File(includeDirectory).toURI().toURL());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		List<String> options = Arrays.asList("-classpath", serializeIncludeDirectories(includeDirectories));
+		Class compiledClass = getClassDef(classPath, options);
 
-		InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
-
-		String className = getClassName(classPath);
-		Class compiledClass = getClassDef(className);
 
 		if (compiledClass == null) {
-			try {
-				String classSource = getClassSource(classPath);
+			// TODO: error handling
+			context.addEvaluationError(
+					new EvaluationError("Compilation error: " + classPath)
+			);
 
-				compiledClass = compiler.compile(className, classSource, options);
-			} catch (Exception e) {
-				// TODO: remove prntln
-				e.printStackTrace();
-
-				// TODO: error handling
-				context.addEvaluationError(
-						new EvaluationError(e.getMessage())
-				);
-				return;
-			}
+			return;
 		}
 
 		for (var module : configuration.getSubModules()) {
@@ -89,11 +81,38 @@ public class ExternalEvaluatorModule implements IEvaluationModule<ExternalEvalua
 		}
 	}
 
-	private Class getClassDef(String className) {
+	private String serializeIncludeDirectories(Collection<String> includeDirs) {
+		StringBuilder sb = new StringBuilder();
+
+		for (String includeDir : includeDirs) {
+			sb.append(includeDir).append(";");
+		}
+
+		return sb.toString();
+	}
+
+	private Class getClassDef(String classPath, List<String> options) {
+		String className = getClassName(classPath);
+
+		Class compiledClass = null;
 		try {
-			return Class.forName(className, false, ClassLoader.getInstance());
+			compiledClass = Class.forName(className, false, ClassLoader.getInstance());
 		} catch (ClassNotFoundException e) {
 			//e.printStackTrace();
+		}
+
+		if (compiledClass != null) {
+			return compiledClass;
+		}
+
+		InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
+		try {
+			String classSource = getClassSource(classPath);
+
+			return compiler.compile(className, classSource, options);
+		} catch (Exception e) {
+			// TODO: remove prntln
+			e.printStackTrace();
 		}
 
 		return null;

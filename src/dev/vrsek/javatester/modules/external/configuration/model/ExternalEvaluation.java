@@ -8,17 +8,9 @@ import java.util.Collection;
 // TODO: evaluate external class with annotations
 public class ExternalEvaluation extends Module {
 	private String classPath;
-	private String includeDirectory;
+	private Collection<String> includeDirectories;
 	// TODO: Create own super class for external evaluation (SubModules?)
 	private Collection<Pair<String, SubModule>> subModules;
-
-	public String getIncludeDirectory() {
-		return includeDirectory;
-	}
-
-	public void setIncludeDirectory(String includeDirectory) {
-		this.includeDirectory = includeDirectory;
-	}
 
 	public String getClassPath() {
 		return classPath;
@@ -34,5 +26,13 @@ public class ExternalEvaluation extends Module {
 
 	public void setSubModules(Collection<Pair<String, SubModule>> subModules) {
 		this.subModules = subModules;
+	}
+
+	public Collection<String> getIncludeDirectories() {
+		return includeDirectories;
+	}
+
+	public void setIncludeDirectories(Collection<String> includeDirectories) {
+		this.includeDirectories = includeDirectories;
 	}
 }

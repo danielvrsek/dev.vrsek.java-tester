@@ -10,10 +10,17 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 
 public class ClassTester_05 {
-	private static String classDir = "C:\\Tests\\build\\classes\\";
+	private static String classDir = "build\\classes\\";
 	private static String submittedPackagesBase = "eu.pedu.ofpa1_19s";
 
 	public static void main(String[] args) throws Exception {
+		if (args.length >= 1) {
+			classDir = args[0];
+		}
+		if (args.length >= 2) {
+			submittedPackagesBase = args[1];
+		}
+
 		ClassTester tester = new ClassTester(classDir, submittedPackagesBase);
 
 		ClassTestConfigurationDeserializer deserializer = new ClassTestConfigurationDeserializer();

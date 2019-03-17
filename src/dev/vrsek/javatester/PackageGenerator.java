@@ -10,7 +10,13 @@ import java.util.stream.Collectors;
 
 public class PackageGenerator {
 	public static void main(String[] args) throws Exception {
-		String sourceCodesPath = "C:\\Tests\\05D_OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG\\OFPA1_19s_HW_PKG_SRC\\eu\\pedu\\ofpa1_19s";
+		String sourceCodesPath;
+		if (args.length >= 1) {
+			sourceCodesPath = args[0];
+		} else {
+			sourceCodesPath = "src\\eu\\pedu\\ofpa1_19s";
+		}
+
 		Collection<String> allStudents = readAllStudents();
 		Collection<String> submittedPackages = getSubmittedPackages(sourceCodesPath, allStudents);
 		writeSubmittedPackages(submittedPackages);

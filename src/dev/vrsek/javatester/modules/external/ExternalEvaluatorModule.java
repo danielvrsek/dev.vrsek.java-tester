@@ -97,7 +97,7 @@ public class ExternalEvaluatorModule implements IEvaluationModule<ExternalEvalua
 		Class compiledClass = null;
 		try {
 			compiledClass = Class.forName(className, false, ClassLoader.getInstance());
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | ClassFormatError e) {
 			//e.printStackTrace();
 		}
 

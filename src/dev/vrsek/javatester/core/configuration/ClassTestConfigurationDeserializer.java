@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import dev.vrsek.javatester.core.configuration.model.ClassTestConfiguration;
 import dev.vrsek.javatester.core.configuration.model.Module;
-import dev.vrsek.javatester.modules.ReflectionModuleDeserializerLocator;
+import dev.vrsek.javatester.modules.ModuleDeserializerLocator;
 import dev.vrsek.utils.Pair;
 
 import java.lang.reflect.Type;
@@ -18,7 +18,7 @@ public class ClassTestConfigurationDeserializer implements IConfigurationDeseria
 		GsonBuilder gsonBuilder = new GsonBuilder();
 
 		Type pairType = new TypeToken<Collection<Pair<String, Module>>>() {}.getType();
-		gsonBuilder.registerTypeAdapter(pairType, new ModuleCollectionDeserializer(new ReflectionModuleDeserializerLocator()));
+		gsonBuilder.registerTypeAdapter(pairType, new ModuleCollectionDeserializer(new ModuleDeserializerLocator()));
 		Gson gson = gsonBuilder.create();
 
 		return gson.fromJson(input, ClassTestConfiguration.class);
